@@ -1,0 +1,29 @@
+package fr.ensma.a3.ia.TPBatailleNavale.automateNavire.etatsNavire;
+
+import fr.ensma.a3.ia.TPBatailleNavale.automateNavire.IGestionEtatNavire;
+/**
+ * Navire est en panne, 
+ * soit toutes les caseNavire de cette navire sont touche ou detruit (mais pas tout detruit)
+ * 
+ * @author yinyiliang
+ *
+ */
+public class EnPanne extends AbstractEtatNavire {
+
+	public EnPanne(IGestionEtatNavire aut) {
+		super(aut);
+	}
+	
+	@Override
+	public void retournerEnFonction() throws ActionNavireNonPermiseException {
+		
+		monautom.setEtatCourant(monautom.getEnFonction());
+	}
+	
+	@Override
+	public void estEnDetruit() throws ActionNavireNonPermiseException {
+	
+		monautom.setEtatCourant(monautom.getEnDetruitNavire());
+	}
+	
+}
