@@ -8,13 +8,23 @@ package fr.ensma.a3.ia.TPBatailleNavale.grille;
  */
 public abstract class Case implements IEstAttaque, IAfficher {
 	
-	private final int positionX;
-	private final int positionY;
+	private int positionX;
+	private int positionY;
 	
 	public Case(final int positionX, final int positionY) {
 		this.positionX = positionX;
 		this.positionY = positionY;
 	}
+	
+	
+	public void setPosX(int positionX) {
+		this.positionX = positionX;
+	}
+
+	public void setPosY(int positionY) {
+		this.positionY = positionY;
+	}
+
 
 	public int getPosX() {
 		return positionX;

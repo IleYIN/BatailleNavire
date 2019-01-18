@@ -6,7 +6,7 @@ package fr.ensma.a3.ia.TPBatailleNavale;
  * @author yinyiliang
  *
  */
-public class Humain extends Joueur {
+public class Humain extends AbsJoueur {
 
 	public Humain() {
 		super("Humain");

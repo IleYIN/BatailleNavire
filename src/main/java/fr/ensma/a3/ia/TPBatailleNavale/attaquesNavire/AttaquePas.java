@@ -2,7 +2,7 @@ package fr.ensma.a3.ia.TPBatailleNavale.attaquesNavire;
 
 import java.util.logging.Logger;
 
-import fr.ensma.a3.ia.TPBatailleNavale.Joueur;
+import fr.ensma.a3.ia.TPBatailleNavale.AbsJoueur;
 import fr.ensma.a3.ia.TPBatailleNavale.grille.Case;
 import fr.ensma.a3.ia.TPBatailleNavale.grille.IEstAttaque;
 
@@ -18,8 +18,8 @@ public class AttaquePas implements IAttaque{
 	
 
 
-	public void aLAttaque(Joueur joueur, int posX, int posY, int puiss) {
-		Case caze = joueur.getGrillePlacement().getCaze(posX, posY);
+	public void aLAttaque(AbsJoueur joueur, int posX, int posY, int puiss) {
+		Case caze = joueur.getGrilleb().getGrillePlacement().getCaze(posX, posY);
 		attaquePas(caze);
 
 	}

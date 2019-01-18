@@ -2,7 +2,7 @@ package fr.ensma.a3.ia.TPBatailleNavale.grille;
 
 import java.util.logging.Logger;
 
-import fr.ensma.a3.ia.TPBatailleNavale.Joueur;
+import fr.ensma.a3.ia.TPBatailleNavale.AbsJoueur;
 import fr.ensma.a3.ia.TPBatailleNavale.navires.Navire;
 
 
@@ -18,29 +18,20 @@ public class Pion extends ElementsGrille {
 	private final static Logger LOGGER = Logger.getLogger(Pion.class.getName());
 	private static int numinstance;
 	private final int posX, posY;
-	private final boolean couleur; //blanc
+	private Navire nav;
+	private AbsJoueur adversal;
 	
-	public Pion(Joueur joueur, Navire nav, Joueur adversal,int posX, int posY) {
+	public Pion(/*Joueur joueur,*/ Navire nav, AbsJoueur adversal,int posX, int posY) {
 	
-		super(joueur+"-Pion-"+numinstance, joueur.getGrilleMemoire());
+		super(/*joueur+*/"-Pion-"+numinstance);
+//		this.joueur = joueur;
 		this.posX = posX;
 		this.posY = posY;
-		
-		
-		nav.aLAttaque(adversal, posX, posY);
-		
-		if(nav.getEtatCourant().equals(nav.getEnFonction()) &&  //si navire n'attaque pas, pion blanc???
-				adversal.getGrillePlacement().getCaze(posX, posY) instanceof CaseNavire) {
-			this.couleur = true;//rouge
-		} else {
-			this.couleur = false; //blanc
-		}
-		
+		this.nav = nav;
+		this.adversal = adversal;
+		numinstance++;
 	}
 
-	public boolean isCouleur() {
-		return couleur;
-	}
 
 	public int getPosX() {
 		return posX;
@@ -58,11 +49,15 @@ public class Pion extends ElementsGrille {
 
 	public void afficher() {
 		
-		if(this.isCouleur()==true) {
+		nav.aLAttaque(adversal, posX, posY);
+		
+		if(nav.getEtatCourant().equals(nav.getEnFonction()) &&  //si navire n'attaque pas, pion blanc???
+				adversal.getGrilleb().getGrillePlacement().getCaze(posX, posY) instanceof CaseNavire) {
 			LOGGER.info(this.toString()+" est rouge ");
 		} else {
 			LOGGER.info(this.toString()+" est blanc ");
 		}
+		
 	}
 
 }

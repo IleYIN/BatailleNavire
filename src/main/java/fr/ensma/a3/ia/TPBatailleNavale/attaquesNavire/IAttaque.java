@@ -1,6 +1,6 @@
 package fr.ensma.a3.ia.TPBatailleNavale.attaquesNavire;
 
-import fr.ensma.a3.ia.TPBatailleNavale.Joueur;
+import fr.ensma.a3.ia.TPBatailleNavale.AbsJoueur;
 
 /**
  * interface attaque d'une navire
@@ -18,6 +18,6 @@ public interface IAttaque {
 	 * @param posY   la position Y de l'attaque
 	 * @param puiss  la puissance d'attaque
 	 */
-	public void aLAttaque(Joueur joueur, int posX, int posY, int puiss);
+	public void aLAttaque(AbsJoueur joueur, int posX, int posY, int puiss);
 
 }

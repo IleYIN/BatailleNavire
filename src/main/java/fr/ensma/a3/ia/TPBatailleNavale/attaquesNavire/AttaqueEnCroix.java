@@ -2,7 +2,7 @@ package fr.ensma.a3.ia.TPBatailleNavale.attaquesNavire;
 
 import java.util.logging.Logger;
 
-import fr.ensma.a3.ia.TPBatailleNavale.Joueur;
+import fr.ensma.a3.ia.TPBatailleNavale.AbsJoueur;
 import fr.ensma.a3.ia.TPBatailleNavale.grille.Case;
 import fr.ensma.a3.ia.TPBatailleNavale.grille.Grille;
 
@@ -16,8 +16,9 @@ public class AttaqueEnCroix implements IAttaque{
 
 	private final static Logger LOGGER = Logger.getLogger(AttaqueEnCroix.class.getName());
 
-	public void aLAttaque(Joueur joueur, int posX, int posY, int puiss) {
-		attaqueEnCroix(joueur.getGrillePlacement(),posX,posY, puiss);
+	public void aLAttaque(AbsJoueur joueur, int posX, int posY, int puiss) {
+		attaqueEnCroix(joueur.getGrilleb().getGrillePlacement(),posX,posY, puiss);
+		joueur.estAttaque();
 	}
 
 	private void attaqueEnCroix(Grille grille, int posX, int posY, int puiss) {
