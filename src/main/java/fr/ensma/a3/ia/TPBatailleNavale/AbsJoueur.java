@@ -27,7 +27,7 @@ public abstract class AbsJoueur {
 		grillemb = new GrilleMemoireBuilder();
 	}
 
-	public void initialiserRandomGrille() {
+	public void initialiserRandomGrilleP() {
 		grillepb.addNavires(new PorteAvion(),.randomNavire(this), 
 				Croiseur.randomNavire(this),
 				ContreTorpilleur.randomNavire(this),
