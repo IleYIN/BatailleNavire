@@ -22,7 +22,7 @@ import fr.ensma.a3.ia.TPBatailleNavale.grille.Grille;
 /**
  * les navires avec des differents types
  */
-public abstract class Navire extends ElementsGrille implements IEtatNavire, INavire, IGestionEtatNavire {
+public abstract class Navire extends ElementsGrille implements INavire {
 
 
 
