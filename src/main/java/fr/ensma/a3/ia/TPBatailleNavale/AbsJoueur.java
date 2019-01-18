@@ -1,6 +1,7 @@
 package fr.ensma.a3.ia.TPBatailleNavale;
 
-import fr.ensma.a3.ia.TPBatailleNavale.grille.GrilleBuilder;
+import fr.ensma.a3.ia.TPBatailleNavale.grille.GrilleMemoireBuilder;
+import fr.ensma.a3.ia.TPBatailleNavale.grille.GrillePlacementBuilder;
 import fr.ensma.a3.ia.TPBatailleNavale.grille.IGrilleBuilder;
 import fr.ensma.a3.ia.TPBatailleNavale.navires.ContreTorpilleur;
 import fr.ensma.a3.ia.TPBatailleNavale.navires.Croiseur;
@@ -16,19 +17,18 @@ public abstract class AbsJoueur {
 
 	
 	private final String id;
-	private final IGrilleBuilder grilleb;
+	private final IGrilleBuilder grillepb;
+	private final IGrilleBuilder grillemb;
+	
 	
 	public AbsJoueur(final String id) {
 		this.id = id;
-		grilleb = new GrilleBuilder();
+		grillepb = new GrillePlacementBuilder();
+		grillemb = new GrilleMemoireBuilder();
 	}
 
-	public void addNavires(Navire...navires) {
-		grilleb.addNavires(navires);
-	}
-
-	public void addRandomNavires() {
-		grilleb.addNavires(PorteAvion.randomNavire(this), 
+	public void initialiserRandomGrille() {
+		grillepb.addNavires(new PorteAvion(),.randomNavire(this), 
 				Croiseur.randomNavire(this),
 				ContreTorpilleur.randomNavire(this),
 				SousMarin.randomNavire(this),

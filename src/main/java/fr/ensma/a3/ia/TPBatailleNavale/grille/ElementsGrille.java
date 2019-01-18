@@ -6,7 +6,7 @@ package fr.ensma.a3.ia.TPBatailleNavale.grille;
  */
 
 public abstract class ElementsGrille implements IAfficher {
-	private final String id;
+	protected final String id;
 	
 	public ElementsGrille(String id) {
 		this.id = id;

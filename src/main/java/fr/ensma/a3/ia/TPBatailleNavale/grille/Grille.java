@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 
-import fr.ensma.a3.ia.TPBatailleNavale.navires.Navire;
 
 /**
  * Grille du jeu
@@ -12,13 +11,13 @@ import fr.ensma.a3.ia.TPBatailleNavale.navires.Navire;
  * @author yinyiliang
  *
  */
+
 public abstract class Grille {
-
-	private List<Case> lcaze;
-	private final static int taille = 10;// 10 * 10 cases
+	
+	protected List<Case> lcaze;
+	protected final static int taille = 10;// 10 * 10 cases
 	private final static Logger LOGGER = Logger.getLogger(Grille.class.getName());
-	private List<Navire> lnavire;
-
+	
 
 	public Grille() {
 
@@ -31,7 +30,6 @@ public abstract class Grille {
 			}
 		}
 
-		lnavire = new ArrayList<Navire>();
 	}
 
 	public static int getTaille() {
@@ -50,41 +48,13 @@ public abstract class Grille {
 				return caze;
 			}
 		}
-		LOGGER.info("can't find such case in this grille");
+		LOGGER.info("impossible de trouver cette case dans la grille");
 		return null;
 	}
 
 
 	public List<Case> getLcaze() {
 		return lcaze;
-	}
-
-
-
-	public List<Navire> getLnavire() {
-		return lnavire;
-	}
-
-	public void setLnavire(List<Navire> lnavire) {
-		this.lnavire = lnavire;
-	}
-
-
-	public void addNavires(Navire... navires ) {
-
-		for(Navire navire : navires) {
-
-			lnavire.add(navire);
-			int posX = navire.getPosX();
-			int posY = navire.getPosY();
-
-			Case caze = this.getCaze(posX, posY);
-			this.setCaze(posX, posY, caze);
-
-			for(Case cazeNav : navire.getLcaseNav()) {
-				this.setCaze(cazeNav.getPosX(), cazeNav.getPosY(), cazeNav);
-			}
-		}
 	}
 
 }
