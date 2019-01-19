@@ -1,4 +1,4 @@
-package fr.ensma.a3.ia.TPBatailleNavale.grille;
+package fr.ensma.a3.ia.TPBatailleNavale.caze;
 
 /**
  * interface d'etre attaque
@@ -8,5 +8,5 @@ package fr.ensma.a3.ia.TPBatailleNavale.grille;
  */
 public interface IEstAttaque  {
 	
-	public void estAttaque(final int puiss);
+	public boolean estAttaque(final int puiss);
 }

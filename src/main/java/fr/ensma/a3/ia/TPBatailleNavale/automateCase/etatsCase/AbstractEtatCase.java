@@ -1,7 +1,7 @@
 package fr.ensma.a3.ia.TPBatailleNavale.automateCase.etatsCase;
 
-import fr.ensma.a3.ia.TPBatailleNavale.automateCase.IEtatCase;
-import fr.ensma.a3.ia.TPBatailleNavale.automateCase.IGestionEtatCase;
+import fr.ensma.a3.ia.TPBatailleNavale.automateCase.IEtatCaseN;
+import fr.ensma.a3.ia.TPBatailleNavale.automateCase.IGestionEtatCaseN;
 
 /**
  * etat d'une case
@@ -9,11 +9,11 @@ import fr.ensma.a3.ia.TPBatailleNavale.automateCase.IGestionEtatCase;
  * @author yinyiliang
  *
  */
-public abstract class AbstractEtatCase implements IEtatCase {
+public abstract class AbstractEtatCase implements IEtatCaseN {
 	
-	protected IGestionEtatCase monautom;
+	protected IGestionEtatCaseN monautom;
 
-	public AbstractEtatCase(final IGestionEtatCase aut) {
+	public AbstractEtatCase(final IGestionEtatCaseN aut) {
 		monautom = aut;
 	}
 	

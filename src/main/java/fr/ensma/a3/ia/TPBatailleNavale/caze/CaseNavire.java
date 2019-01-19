@@ -1,9 +1,9 @@
-package fr.ensma.a3.ia.TPBatailleNavale.grille;
+package fr.ensma.a3.ia.TPBatailleNavale.caze;
 
 import java.util.logging.Logger;
 
-import fr.ensma.a3.ia.TPBatailleNavale.automateCase.IEtatCase;
-import fr.ensma.a3.ia.TPBatailleNavale.automateCase.IGestionEtatCase;
+import fr.ensma.a3.ia.TPBatailleNavale.automateCase.IEtatCaseN;
+import fr.ensma.a3.ia.TPBatailleNavale.automateCase.IGestionEtatCaseN;
 import fr.ensma.a3.ia.TPBatailleNavale.automateCase.etatsCase.ActionCaseNonPermiseException;
 import fr.ensma.a3.ia.TPBatailleNavale.automateCase.etatsCase.EnDetruit;
 import fr.ensma.a3.ia.TPBatailleNavale.automateCase.etatsCase.EnNormal;
@@ -14,16 +14,16 @@ import fr.ensma.a3.ia.TPBatailleNavale.automateCase.etatsCase.EnTouche;
  * @author yinyiliang
  *
  */
-public class CaseNavire extends Case implements IEtatCase, IGestionEtatCase {
+public class CaseNavire extends Case implements IEtatCaseN, IGestionEtatCaseN {
 
 	private final static Logger LOGGER = Logger.getLogger(CaseNavire.class.getName());
 	private int nvie;
 
 	// Gestion Etat
-	private IEtatCase etatCourant;
-	private IEtatCase enNormal = new EnNormal(this);
-	private IEtatCase enTouche = new EnTouche(this);
-	private IEtatCase enDetruit = new EnDetruit(this);
+	private IEtatCaseN etatCourant;
+	private IEtatCaseN enNormal = new EnNormal(this);
+	private IEtatCaseN enTouche = new EnTouche(this);
+	private IEtatCaseN enDetruit = new EnDetruit(this);
 	
 	
 	
@@ -40,10 +40,6 @@ public class CaseNavire extends Case implements IEtatCase, IGestionEtatCase {
 	public int getNvie() {
 		return nvie;
 	}
-	
-	public void afficher() {
-		
-	}
 
 	@Override
 	public String toString() {
@@ -51,25 +47,29 @@ public class CaseNavire extends Case implements IEtatCase, IGestionEtatCase {
 	}
 
 	
-	public void estAttaque(int puiss) {
+	public boolean estAttaque(int puiss) {
 		LOGGER.info("tir dans une case navire "+this.toString());
 		if (this.getNvie() > puiss) {
 			this.setNvie(this.getNvie() - puiss);
 			LOGGER.info(this.toString() + " est touche ");
 			try {
-				etatCourant.subirAttaque();  
+				etatCourant.subirAttaque(); 
+				return true;
 				//pion rouge
 			} catch (ActionCaseNonPermiseException e) {
 				LOGGER.info(this.toString()+e.getMessage());
+				return false;
 			}
 		} else {
 			this.setNvie(0);
 			LOGGER.info(this.toString() + " est detruit ");
 			try {
 				etatCourant.toDetruit();  
+				return true;
 				//pion rouge
 			} catch (ActionCaseNonPermiseException e) {
 				LOGGER.info(this.toString()+e.getMessage());
+				return false;
 			}
 			
 		}
@@ -77,27 +77,27 @@ public class CaseNavire extends Case implements IEtatCase, IGestionEtatCase {
 
 
 	//ETAT
-	public IEtatCase getEtatCourant() {
+	public IEtatCaseN getEtatCourant() {
 		return etatCourant;
 	}
 
 
-	public void setEtatCourant(IEtatCase etat) {
+	public void setEtatCourant(IEtatCaseN etat) {
 		this.etatCourant = etat;
 	}
 
 
-	public IEtatCase getEnTouche() {
+	public IEtatCaseN getEnTouche() {
 		return enTouche;
 	}
 
 
-	public IEtatCase getEnDetruit() {
+	public IEtatCaseN getEnDetruit() {
 		return enDetruit;
 	}
 
 
-	public IEtatCase getEnNormal() {
+	public IEtatCaseN getEnNormal() {
 		return enNormal;
 	}
 

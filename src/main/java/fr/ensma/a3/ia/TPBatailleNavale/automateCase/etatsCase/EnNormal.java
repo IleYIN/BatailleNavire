@@ -1,6 +1,6 @@
 package fr.ensma.a3.ia.TPBatailleNavale.automateCase.etatsCase;
 
-import fr.ensma.a3.ia.TPBatailleNavale.automateCase.IGestionEtatCase;
+import fr.ensma.a3.ia.TPBatailleNavale.automateCase.IGestionEtatCaseN;
 
 /**
  * Case est normal, soit niveau vie de la case est plein
@@ -11,7 +11,7 @@ import fr.ensma.a3.ia.TPBatailleNavale.automateCase.IGestionEtatCase;
 
 public class EnNormal extends AbstractEtatCase {
 
-	public EnNormal(IGestionEtatCase aut) {
+	public EnNormal(IGestionEtatCaseN aut) {
 		super(aut);
 	}
 	

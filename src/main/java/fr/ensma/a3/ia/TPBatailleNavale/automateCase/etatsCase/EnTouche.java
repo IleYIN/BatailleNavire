@@ -1,6 +1,6 @@
 package fr.ensma.a3.ia.TPBatailleNavale.automateCase.etatsCase;
 
-import fr.ensma.a3.ia.TPBatailleNavale.automateCase.IGestionEtatCase;
+import fr.ensma.a3.ia.TPBatailleNavale.automateCase.IGestionEtatCaseN;
 
 
 /**
@@ -11,7 +11,7 @@ import fr.ensma.a3.ia.TPBatailleNavale.automateCase.IGestionEtatCase;
  */
 public class EnTouche extends AbstractEtatCase {
 
-	public EnTouche(IGestionEtatCase aut) {
+	public EnTouche(IGestionEtatCaseN aut) {
 		super(aut);
 	}
 	

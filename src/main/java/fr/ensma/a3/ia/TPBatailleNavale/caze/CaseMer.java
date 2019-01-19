@@ -1,4 +1,4 @@
-package fr.ensma.a3.ia.TPBatailleNavale.grille;
+package fr.ensma.a3.ia.TPBatailleNavale.caze;
 
 import java.util.logging.Logger;
 
@@ -21,8 +21,9 @@ public class CaseMer extends Case {
 		//TODO
 	}
 
-	public void estAttaque(int puiss) {
+	public boolean estAttaque(int puiss) {
 		LOGGER.info("tir dans la mer "+ this.toString());
+		return false;
 	}
 	
 	@Override

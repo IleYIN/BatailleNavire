@@ -3,7 +3,7 @@ package fr.ensma.a3.ia.TPBatailleNavale.navires;
 import java.util.ArrayList;
 
 import fr.ensma.a3.ia.TPBatailleNavale.attaquesNavire.AttaqueClassique;
-import fr.ensma.a3.ia.TPBatailleNavale.grille.CaseNavire;
+import fr.ensma.a3.ia.TPBatailleNavale.caze.CaseNavire;
 
 public class PorteAvion extends Navire {
 

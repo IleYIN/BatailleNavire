@@ -8,7 +8,7 @@ import fr.ensma.a3.ia.TPBatailleNavale.automateCase.etatsCase.ActionCaseNonPermi
  * @author yinyiliang
  *
  */
-public interface IEtatCase {
+public interface IEtatCaseN {
 
 	public void subirAttaque() throws ActionCaseNonPermiseException;
 	public void retournerEnNormal() throws ActionCaseNonPermiseException;

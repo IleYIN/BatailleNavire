@@ -1,4 +1,4 @@
-package fr.ensma.a3.ia.TPBatailleNavale.grille;
+package fr.ensma.a3.ia.TPBatailleNavale.caze;
 
 /**
  * une case
@@ -6,7 +6,7 @@ package fr.ensma.a3.ia.TPBatailleNavale.grille;
  * @author yinyiliang
  *
  */
-public abstract class Case implements IEstAttaque, IAfficher {
+public abstract class Case implements IEstAttaque {
 	
 	private int positionX;
 	private int positionY;

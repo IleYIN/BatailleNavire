@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 
+import fr.ensma.a3.ia.TPBatailleNavale.caze.Case;
+import fr.ensma.a3.ia.TPBatailleNavale.caze.CaseMer;
+
 
 /**
  * Grille du jeu
@@ -12,7 +15,7 @@ import java.util.logging.Logger;
  *
  */
 
-public abstract class Grille {
+public abstract class Grille implements IGrille {
 	
 	protected List<Case> lcaze;
 	protected final static int taille = 10;// 10 * 10 cases
@@ -32,7 +35,7 @@ public abstract class Grille {
 
 	}
 
-	public static int getTaille() {
+	public int getTaille() {
 		return taille;
 	}
 

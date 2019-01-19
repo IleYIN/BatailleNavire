@@ -3,7 +3,6 @@ package fr.ensma.a3.ia.TPBatailleNavale.navires;
 import java.util.List;
 import java.util.logging.Logger;
 
-import fr.ensma.a3.ia.TPBatailleNavale.AbsJoueur;
 import fr.ensma.a3.ia.TPBatailleNavale.attaquesNavire.AttaquePas;
 import fr.ensma.a3.ia.TPBatailleNavale.attaquesNavire.IAttaque;
 import fr.ensma.a3.ia.TPBatailleNavale.automateNavire.IEtatNavire;
@@ -11,7 +10,8 @@ import fr.ensma.a3.ia.TPBatailleNavale.automateNavire.etatsNavire.ActionNavireNo
 import fr.ensma.a3.ia.TPBatailleNavale.automateNavire.etatsNavire.EnDetruitNavire;
 import fr.ensma.a3.ia.TPBatailleNavale.automateNavire.etatsNavire.EnFonction;
 import fr.ensma.a3.ia.TPBatailleNavale.automateNavire.etatsNavire.EnPanne;
-import fr.ensma.a3.ia.TPBatailleNavale.grille.CaseNavire;
+import fr.ensma.a3.ia.TPBatailleNavale.caze.CaseNavire;
+import fr.ensma.a3.ia.TPBatailleNavale.joueur.AbsJoueur;
 
 /**
  * les navires avec des differents types
@@ -123,8 +123,8 @@ public abstract class Navire implements INavire {
 
 
 
-	public void aLAttaque(AbsJoueur adversal, int posX,int posY) {
-		compoAttaque.aLAttaque(adversal, posX, posY,puissanceAttaque);
+	public void aLAttaque(AbsJoueur joueur, AbsJoueur adversal, int posX,int posY) {
+		compoAttaque.aLAttaque(joueur, adversal, posX, posY,puissanceAttaque);
 	}
 
 

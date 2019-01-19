@@ -4,7 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 
-import fr.ensma.a3.ia.TPBatailleNavale.navires.Navire;
+import fr.ensma.a3.ia.TPBatailleNavale.caze.Case;
+import fr.ensma.a3.ia.TPBatailleNavale.caze.CaseMer;
+import fr.ensma.a3.ia.TPBatailleNavale.caze.CaseNavire;
+import fr.ensma.a3.ia.TPBatailleNavale.navires.INavire;
+
 
 /**
  * Grille du jeu
@@ -13,36 +17,32 @@ import fr.ensma.a3.ia.TPBatailleNavale.navires.Navire;
  *
  */
 
-public class GrillePlacement extends Grille {
+public class GrillePlacement extends Grille implements IGrilleP {
 	
 	private final static Logger LOGGER = Logger.getLogger(GrillePlacement.class.getName());
 	
-	private List<Navire> lnavire;
+	private final List<INavire> lnavire;
 
 
 	public GrillePlacement() {
 
 		super();
-		lnavire = new ArrayList<Navire>();
+		lnavire = new ArrayList<INavire>();
 	}
 
-	public List<Navire> getLnavire() {
+	public List<INavire> getLnavire() {
 		return lnavire;
 	}
 
-	public void setLnavire(List<Navire> lnavire) {
-		this.lnavire = lnavire;
-	}
 
-
-	private boolean OKToPlaceNavire(Navire nav, int posX, int posY, boolean ori) {
+	private boolean OKToPlaceNavire(INavire nav, int posX, int posY, boolean ori) {
 
 		Case caze = this.getCaze(posX, posY);
 
 		if(caze instanceof CaseNavire || caze == null) {
 			return false;
 		} else if (ori==false) {//horizontal
-			if((caze.getPosX()+nav.getLongueur()>GrillePlacement.getTaille())) {
+			if((caze.getPosX()+nav.getLongueur()>this.getTaille())) {
 				return false;
 			} else {
 				for(int i=1; i<nav.getLongueur(); i++) {
@@ -52,7 +52,7 @@ public class GrillePlacement extends Grille {
 				}
 			}
 		} else if (ori==true) {
-			if(caze.getPosY()+nav.getLongueur()>GrillePlacement.getTaille()) {
+			if(caze.getPosY()+nav.getLongueur()>this.getTaille()) {
 				return false;
 			} else {
 
@@ -68,7 +68,7 @@ public class GrillePlacement extends Grille {
 
 
 
-	public void addNavire(Navire nav, int posX, int posY, boolean ori) {
+	public void addNavire(INavire nav, int posX, int posY, boolean ori) {
 
 		if(OKToPlaceNavire(nav, posX, posY, ori)) {
 
@@ -104,7 +104,7 @@ public class GrillePlacement extends Grille {
 
 	}
 
-	public void addRandomNavire(Navire nav) {
+	public void addRandomNavire(INavire nav) {
 
 		int posX, posY, trueOrFalse;
 		boolean ori;
@@ -133,9 +133,15 @@ public class GrillePlacement extends Grille {
 
 		addNavire(nav, posX, posY, ori);
 	}
+	
+	public void addRandomNavires(INavire... navs) {
+		for(INavire nav : navs ) {
+			addRandomNavire(nav);
+		}
+	}
 
 
-	public void deplacerX(Navire nav, int x) {
+	public void deplacerX(INavire nav, int x) {
 
 		boolean deplacable = true;
 		boolean bonnecaze = false;
@@ -179,7 +185,7 @@ public class GrillePlacement extends Grille {
 	}
 
 
-	public void deplacerY(Navire nav,int y) {
+	public void deplacerY(INavire nav,int y) {
 
 		boolean deplacable = true;
 		boolean bonnecaze = false;
@@ -214,13 +220,7 @@ public class GrillePlacement extends Grille {
 		}
 	}
 
-
-	public void pivoter(Navire nav, Case caze) {
-		pivoter(nav, caze.getPosX(), caze.getPosY());
-	}
-	
-	
-	public void pivoter(Navire nav, int posX, int posY) {
+	public void pivoter(INavire nav, int posX, int posY) {
 
 
 		boolean deplacable = true;
@@ -290,5 +290,11 @@ public class GrillePlacement extends Grille {
 		}
 
 	}
+
+
+	public void pivoter(INavire nav,CaseNavire cazeNav) {
+		pivoter(nav, cazeNav.getPosX(), cazeNav.getPosY());
+	}
+	
 
 }

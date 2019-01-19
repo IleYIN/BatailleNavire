@@ -2,9 +2,8 @@ package fr.ensma.a3.ia.TPBatailleNavale.attaquesNavire;
 
 import java.util.logging.Logger;
 
-import fr.ensma.a3.ia.TPBatailleNavale.AbsJoueur;
-import fr.ensma.a3.ia.TPBatailleNavale.grille.Case;
-import fr.ensma.a3.ia.TPBatailleNavale.grille.Grille;
+import fr.ensma.a3.ia.TPBatailleNavale.caze.Case;
+import fr.ensma.a3.ia.TPBatailleNavale.joueur.AbsJoueur;
 
 /**
  * Attaque en plus de la case désignée, les cases haut, bas, gauche et droite sont touchées
@@ -16,43 +15,51 @@ public class AttaqueEnCroix implements IAttaque{
 
 	private final static Logger LOGGER = Logger.getLogger(AttaqueEnCroix.class.getName());
 
-	public void aLAttaque(AbsJoueur joueur, int posX, int posY, int puiss) {
-		attaqueEnCroix(joueur.getGrilleb().getGrillePlacement(),posX,posY, puiss);
-		joueur.estAttaque();
+	public void aLAttaque(AbsJoueur joueur,AbsJoueur adverse, int posX, int posY, int puiss) {
+		attaqueEnCroix(joueur,adverse,posX,posY, puiss);
+		adverse.estAttaque();
 	}
 
-	private void attaqueEnCroix(Grille grille, int posX, int posY, int puiss) {
+	private void attaqueEnCroix(AbsJoueur joueur, AbsJoueur adverse, int posX, int posY, int puiss) {
 		
-		Case caze = grille.getCaze(posX, posY);
+		Case caze = adverse.getGrillep().getCaze(posX, posY);
 		LOGGER.info("Attaque en Croix a la case:"+caze.toString());
-		caze.estAttaque(puiss);
+		
+		boolean a = caze.estAttaque(puiss);
+		joueur.getGrillem().addPion(caze, a);
+		
 		try {
-			Case cazehaut = grille.getCaze(posX, posY+1);
-			cazehaut.estAttaque(puiss);
+			Case cazehaut = adverse.getGrillep().getCaze(posX, posY+1);
+			joueur.getGrillem().addPion(cazehaut, cazehaut.estAttaque(puiss));
 		} catch (Exception e) {
 			LOGGER.info("case haut n'existe pas");
 		}
 		
 		try {
-			Case cazebas = grille.getCaze(posX, posY-1);
-			cazebas.estAttaque(puiss);
+			Case cazebas = adverse.getGrillep().getCaze(posX, posY-1);
+			joueur.getGrillem().addPion(cazebas,cazebas.estAttaque(puiss));
 		} catch (Exception e) {
 			LOGGER.info("case bas n'existe pas");
 		}
 		
 		try {
-			Case cazegauche = grille.getCaze(posX-1, posY);
-			cazegauche.estAttaque(puiss);
+			Case cazegauche = adverse.getGrillep().getCaze(posX-1, posY);
+			joueur.getGrillem().addPion(cazegauche,cazegauche.estAttaque(puiss));
 		}  catch (Exception e) {
 			LOGGER.info("case gauche n'existe pas");
 		}
 		
 		try {
-			Case cazedroite = grille.getCaze(posX+1, posY);
-			cazedroite.estAttaque(puiss);
+			Case cazedroite = adverse.getGrillep().getCaze(posX+1, posY);
+			joueur.getGrillem().addPion(cazedroite,cazedroite.estAttaque(puiss));
 		}  catch (Exception e) {
 			LOGGER.info("case droit n'existe pas");
 		}
+		
+	}
+
+	public void aLAttaque(AbsJoueur joueur, AbsJoueur adversal, Case caze, int puiss) {
+		aLAttaque(joueur, adversal, caze.getPosX(), caze.getPosY(), puiss);
 		
 	}
 
