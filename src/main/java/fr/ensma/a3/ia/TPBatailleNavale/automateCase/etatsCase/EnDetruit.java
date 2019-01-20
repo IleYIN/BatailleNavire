@@ -12,5 +12,10 @@ public class EnDetruit extends AbstractEtatCase {
 	public EnDetruit(IGestionEtatCaseN aut) {
 		super(aut);
 	}
-	
+
+	@Override
+	public void toDetruit() throws ActionCaseNonPermiseException {
+		//rester en detruit
+		monautom.setEtatCourant(monautom.getEnDetruit());
+	}
 }

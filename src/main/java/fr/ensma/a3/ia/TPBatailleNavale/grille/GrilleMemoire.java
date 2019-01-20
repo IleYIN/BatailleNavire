@@ -1,5 +1,6 @@
 package fr.ensma.a3.ia.TPBatailleNavale.grille;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -23,6 +24,7 @@ public class GrilleMemoire extends Grille implements IGrilleM {
 
 	public GrilleMemoire() {
 		super();
+		lpion = new ArrayList<Pion>();
 	}
 
 	public void addPion(int posX, int posY, boolean tir) {

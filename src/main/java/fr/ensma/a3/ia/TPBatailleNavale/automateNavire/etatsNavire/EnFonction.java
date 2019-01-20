@@ -13,12 +13,17 @@ public class EnFonction extends AbstractEtatNavire {
 	public EnFonction(IGestionEtatNavire aut) {
 		super(aut);
 	}
-	
-	
+
+
 	@Override
 	public void estEnPanne() throws ActionNavireNonPermiseException {
-		
+
 		monautom.setEtatCourant(monautom.getEnPanne());
 	}
-	
+
+	@Override
+	public void estEnDetruit() throws ActionNavireNonPermiseException {
+		monautom.setEtatCourant(monautom.getEnDetruitNavire());
+	}
+
 }

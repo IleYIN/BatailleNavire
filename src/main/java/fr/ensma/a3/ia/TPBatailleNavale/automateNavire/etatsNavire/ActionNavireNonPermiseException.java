@@ -11,7 +11,7 @@ public class ActionNavireNonPermiseException extends Exception{
 	
 	@Override
 	public String getMessage() {
-		return message + " -- " + super.getMessage();
+		return message;
 	}
 	
 	public String getMonMessage() {

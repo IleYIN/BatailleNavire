@@ -11,7 +11,7 @@ import fr.ensma.a3.ia.TPBatailleNavale.joueur.AbsJoueur;
  * @author yinyiliang
  *
  */
-public class AttaqueClassique implements IAttaque{
+public class AttaqueClassique  extends AbsAttaque {
 
 	private final static Logger LOGGER = Logger.getLogger(AttaqueClassique.class.getName());
 
@@ -23,8 +23,9 @@ public class AttaqueClassique implements IAttaque{
 
 	private void attaqueClassique(AbsJoueur joueur, AbsJoueur adverse, int posX, int posY, int puiss) {
 		Case caze = adverse.getGrillep().getCaze(posX, posY);
-		LOGGER.info("Attaque Classique a la case:"+caze.toString());
-		joueur.getGrillem().addPion(caze,caze.estAttaque(puiss));
+		LOGGER.info(joueur+" attaque Classique a la case:"+caze.toString()+" de "+adverse);
+		int puiss1 = checkbombe(adverse, posX, posY, puiss);
+		joueur.getGrillem().addPion(caze,caze.estAttaque(puiss1));
 	}
 
 	public void aLAttaque(AbsJoueur joueur, AbsJoueur adversal, Case caze, int puiss) {

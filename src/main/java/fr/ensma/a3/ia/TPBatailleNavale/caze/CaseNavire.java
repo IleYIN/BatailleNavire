@@ -50,9 +50,9 @@ public class CaseNavire extends Case implements IEtatCaseN, IGestionEtatCaseN {
 	public boolean estAttaque(int puiss) {
 		LOGGER.info("tir dans une case navire "+this.toString());
 		if (this.getNvie() > puiss) {
-			this.setNvie(this.getNvie() - puiss);
-			LOGGER.info(this.toString() + " est touche ");
 			try {
+				this.setNvie(this.getNvie() - puiss);
+				LOGGER.info(this.toString() + " est touche ");
 				etatCourant.subirAttaque(); 
 				return true;
 				//pion rouge
@@ -61,9 +61,9 @@ public class CaseNavire extends Case implements IEtatCaseN, IGestionEtatCaseN {
 				return false;
 			}
 		} else {
-			this.setNvie(0);
-			LOGGER.info(this.toString() + " est detruit ");
 			try {
+				this.setNvie(0);
+				LOGGER.info(this.toString() + " est detruit ");
 				etatCourant.toDetruit();  
 				return true;
 				//pion rouge

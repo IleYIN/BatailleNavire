@@ -21,8 +21,4 @@ public enum ECouleur {
 	/**
 	 * Obtient la représentation textuelle d'une couleur.
 	 */
-	@Override
-	public String toString() {
-		return "(" + valeurcouleur + ")";
-	}	
 }

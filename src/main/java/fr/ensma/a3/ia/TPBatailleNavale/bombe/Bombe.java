@@ -1,0 +1,72 @@
+package fr.ensma.a3.ia.TPBatailleNavale.bombe;
+
+import java.util.logging.Logger;
+
+
+/**
+ * pattern singleton
+ * 
+ * @author yinyiliang
+ *
+ */
+
+public class Bombe {
+	
+
+	private final static Logger LOGGER = Logger.getLogger(Bombe.class.getName());
+	private int resistance = 3;
+	private final int posX = (int) (Math.random()*10);
+	private final int posY = (int) (Math.random()*10);
+	
+	/**Constructeur Privé*/
+	private Bombe() {
+	}
+
+	/**Holder chargé lors du premier acces à la classe */
+	private static class holder{
+		/**L'instance unique créé lors du premier chargement*/
+		private static final Bombe moninstance = new Bombe();
+	}
+	
+	/**
+	 * Obtient l'instance Unique
+	 * @return Bombe
+	 */
+	public static Bombe retournerUneBombe() {
+		return holder.moninstance;
+	}
+
+	public int getPosX() {
+		return posX;
+	}
+
+	public int getPosY() {
+		return posY;
+	}
+
+
+	public int getResistance() {
+		return resistance;
+	}
+	
+
+	public void setResistance(int resistance) {
+		this.resistance = resistance;
+	}
+
+
+	public int estAttaque(int puiss) {
+		LOGGER.info("tir dans une bombe");
+		int r = this.getResistance();
+		if(r > puiss) {
+			this.setResistance(r-puiss);
+			return 0;
+		} else {
+			this.setResistance(0);
+			return (puiss - r);
+		}
+	}
+	
+
+	
+}

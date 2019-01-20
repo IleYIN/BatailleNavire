@@ -9,7 +9,10 @@ package fr.ensma.a3.ia.TPBatailleNavale.navires;
 public enum ENavire {
 	
 	ContreTorpilleur("ContreTorpilleur"), Croiseur("Croiseur"), 
-	PorteAvion("PorteAvion"),SousMarin("SousMarin"),Torpilleur("Torpilleur");
+	PorteAvion("PorteAvion"),SousMarin("SousMarin"),Torpilleur("Torpilleur"),
+	Voilier("Voilier");
+	
+	
 	
 	private String label;
 	

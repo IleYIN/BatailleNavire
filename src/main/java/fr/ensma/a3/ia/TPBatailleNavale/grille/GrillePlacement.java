@@ -4,10 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 
+import fr.ensma.a3.ia.TPBatailleNavale.bombe.Bombe;
 import fr.ensma.a3.ia.TPBatailleNavale.caze.Case;
 import fr.ensma.a3.ia.TPBatailleNavale.caze.CaseMer;
 import fr.ensma.a3.ia.TPBatailleNavale.caze.CaseNavire;
 import fr.ensma.a3.ia.TPBatailleNavale.navires.INavire;
+import fr.ensma.a3.ia.TPBatailleNavale.navires.Voilier;
 
 
 /**
@@ -18,16 +20,27 @@ import fr.ensma.a3.ia.TPBatailleNavale.navires.INavire;
  */
 
 public class GrillePlacement extends Grille implements IGrilleP {
-	
+
 	private final static Logger LOGGER = Logger.getLogger(GrillePlacement.class.getName());
-	
+
 	private final List<INavire> lnavire;
+
+	private Bombe bombe;
 
 
 	public GrillePlacement() {
-
 		super();
 		lnavire = new ArrayList<INavire>();
+		//initialer une bombe
+		this.bombe = Bombe.retournerUneBombe();
+	}
+
+	public void setBombe(Bombe bombe) {
+		this.bombe = bombe;
+	}
+
+	public Bombe getBombe() {
+		return bombe;
 	}
 
 	public List<INavire> getLnavire() {
@@ -73,9 +86,6 @@ public class GrillePlacement extends Grille implements IGrilleP {
 		if(OKToPlaceNavire(nav, posX, posY, ori)) {
 
 
-			CaseNavire cazeNavint = new CaseNavire(posX, posY, nav.getNvieCase());
-
-			nav.getLcaseNav().add(cazeNavint);
 			nav.setPosX(posX);
 			nav.setPosY(posY);
 			nav.setOri(ori);
@@ -133,13 +143,12 @@ public class GrillePlacement extends Grille implements IGrilleP {
 
 		addNavire(nav, posX, posY, ori);
 	}
-	
+
 	public void addRandomNavires(INavire... navs) {
 		for(INavire nav : navs ) {
 			addRandomNavire(nav);
 		}
 	}
-
 
 	public void deplacerX(INavire nav, int x) {
 
@@ -152,7 +161,12 @@ public class GrillePlacement extends Grille implements IGrilleP {
 			int posY = cazeNav.getPosY();
 			this.setCaze(posX, posY, new CaseMer(posX,posY));
 			//			System.out.println("--"+cazeNav);
-			if(cazeNav.getEtatCourant().equals(cazeNav.getEnDetruit())) {
+
+			//si une des cases est detruit 
+			//ou x est superieur a la vie d'une case navire la plus petite
+			//il ne peut pas deplacer
+			if(cazeNav.getEtatCourant().equals(cazeNav.getEnDetruit())
+					|| cazeNav.getNvie() < x || x < 1) {
 				deplacable = false;
 			}
 			if (cazeNav.getPosX()==posX && cazeNav.getPosY()==posY) {
@@ -173,6 +187,7 @@ public class GrillePlacement extends Grille implements IGrilleP {
 				//poser les cases navires dans la grille
 				this.setCaze(cazeNav.getPosX(), cazeNav.getPosY(), cazeNav);
 			}
+			LOGGER.info(nav.toString() + " deplace dans la direction x de "+x);
 
 		} else {//remettre les cases navires a la position originale dans la grille
 			for(CaseNavire cazeNav : nav.getLcaseNav()) {
@@ -194,7 +209,10 @@ public class GrillePlacement extends Grille implements IGrilleP {
 			int posX = cazeNav.getPosX();
 			int posY = cazeNav.getPosY();
 			this.setCaze(posX, posY, new CaseMer(posX,posY));
-			if(cazeNav.getEtatCourant().equals(cazeNav.getEnDetruit())) {
+
+
+			if(cazeNav.getEtatCourant().equals(cazeNav.getEnDetruit())
+					|| cazeNav.getNvie() < y || y < 1) {
 				deplacable = false;
 			}
 			if (cazeNav.getPosX()==posX && cazeNav.getPosY()==posY) {
@@ -210,6 +228,8 @@ public class GrillePlacement extends Grille implements IGrilleP {
 				cazeNav.setPosY(cazeNav.getPosY()+y);
 				this.setCaze(cazeNav.getPosX(), cazeNav.getPosY(), cazeNav);
 			}
+
+			LOGGER.info(nav.toString() + " deplace dans la direction y de "+y);
 		} else {
 			for(CaseNavire cazeNav : nav.getLcaseNav()) {
 				int posX = cazeNav.getPosX();
@@ -253,6 +273,7 @@ public class GrillePlacement extends Grille implements IGrilleP {
 					cazeNav.setPosY(cazeNav.getPosY()-d);
 					this.setCaze(cazeNav.getPosX(), cazeNav.getPosY(), cazeNav);
 				}
+				LOGGER.info(nav.toString()+ " pivote a la direction "+nav.isOri());
 			} else {
 				for(CaseNavire cazeNav : nav.getLcaseNav()) {
 					int pX = cazeNav.getPosX();
@@ -295,6 +316,114 @@ public class GrillePlacement extends Grille implements IGrilleP {
 	public void pivoter(INavire nav,CaseNavire cazeNav) {
 		pivoter(nav, cazeNav.getPosX(), cazeNav.getPosY());
 	}
+
+	public INavire getRandomNavireAttaque() {
+		int i = (int) (Math.random() * this.getLnavire().size());
+		while (!(this.getLnavire().get(i).getEtatCourant().equals(this.getLnavire().get(i).getEnFonction()))
+				|| (this.getLnavire().get(i) instanceof Voilier)) {
+			i = (int) (Math.random() * this.getLnavire().size());
+		}
+		return this.getLnavire().get(i);
+	}
+
+	public void explodeBombe() {
+
+		int posX = this.bombe.getPosX();
+		int posY = this.bombe.getPosY();
+		this.getCaze(posX, posY).estAttaque(3);
+
+		/////////////////////
+
+		try {
+			this.getCaze(posX+1, posY).estAttaque(2);
+		} catch (Exception e) {
+			LOGGER.info("case("+(posX+1)+","+posY+") n'existe pas");
+		}
+
+		try {
+			this.getCaze(posX+1, posY-1).estAttaque(2);
+		} catch (Exception e) {
+			LOGGER.info("case("+(posX+1)+","+(posY-1)+") n'existe pas");
+		}
+
+		try {
+			this.getCaze(posX+1, posY+1).estAttaque(2);
+		} catch (Exception e) {
+			LOGGER.info("case("+(posX+1)+","+(posY+1)+") n'existe pas");
+		}
+
+		try {
+			this.getCaze(posX-1, posY).estAttaque(2);
+		} catch (Exception e) {
+			LOGGER.info("case("+(posX-1)+","+posY+") n'existe pas");
+		}
+
+
+		try {
+			this.getCaze(posX-1, posY+1).estAttaque(2);
+		} catch (Exception e) {
+			LOGGER.info("case("+(posX-1)+","+(posY+1)+") n'existe pas");
+		}
+
+		try {
+			this.getCaze(posX-1, posY-1).estAttaque(2);
+		} catch (Exception e) {
+			LOGGER.info("case("+(posX-1)+","+(posY-1)+") n'existe pas");
+		}
+
+		try {
+			this.getCaze(posX, posY+1).estAttaque(2);
+		} catch (Exception e) {
+			LOGGER.info("case("+posX+","+(posY+1)+") n'existe pas");
+		}
+
+		try {
+			this.getCaze(posX, posY-1).estAttaque(2);
+		} catch (Exception e) {
+			LOGGER.info("case("+posX+","+(posY-1)+") n'existe pas");
+		}
+
+
+		try {
+			this.getCaze(posX, posY+1).estAttaque(2);
+		} catch (Exception e) {
+			LOGGER.info("case("+(posX-1)+","+(posY+1)+") n'existe pas");
+		}
+
+		///////////////////
+
+		for(int i=-2;i<=2;i++) {
+			try {
+				this.getCaze(posX-2, posY+i).estAttaque(1);
+			} catch (Exception e) {
+				LOGGER.info("case("+(posX-2)+","+(posY+i)+") n'existe pas");
+			}
+
+			try {
+				this.getCaze(posX+2, posY+i).estAttaque(1);
+			} catch (Exception e) {
+				LOGGER.info("case("+(posX+2)+","+(posY+i)+") n'existe pas");
+			}
+		}
+
+		for(int i=-1;i<=1;i++) {
+			try {
+				this.getCaze(posX+i, posY+2).estAttaque(1);
+			} catch (Exception e) {
+				LOGGER.info("case("+(posX+i)+","+(posY+2)+") n'existe pas");
+			}
+
+			try {
+				this.getCaze(posX+i, posY-2).estAttaque(1);
+			} catch (Exception e) {
+				LOGGER.info("case("+(posX+i)+","+(posY-2)+") n'existe pas");
+			}
+		}
+	}
 	
+	
+	public INavire getNavire(class ) {
+		
+	}
 
 }

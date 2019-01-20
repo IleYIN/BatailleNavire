@@ -21,13 +21,13 @@ public abstract class Navire implements INavire {
 
 
 	private final static Logger LOGGER = Logger.getLogger(Navire.class.getName());
-	protected int longueur;
-	protected int puissanceAttaque;
-	protected int nvieCase;
-	protected IAttaque compoAttaque;
-	protected List<CaseNavire> lcaseNav;
-	protected int posX, posY;
-	protected boolean ori;
+	private int longueur;
+	private int puissanceAttaque;
+	private int nvieCase;
+	private IAttaque compoAttaque;
+	private List<CaseNavire> lcaseNav;
+	private int posX, posY;
+	private boolean ori;
 	protected ENavire enav;
 
 	// Gestion Etat
@@ -203,7 +203,7 @@ public abstract class Navire implements INavire {
 
 	@Override
 	public String toString() {
-		return "-("+this.posX+","+this.posY+")";
+		return "-("+this.posX+","+this.posY+","+this.ori+","+this.longueur+")"+"puiss:"+this.getPuissanceAttaque();
 	}
 
 }

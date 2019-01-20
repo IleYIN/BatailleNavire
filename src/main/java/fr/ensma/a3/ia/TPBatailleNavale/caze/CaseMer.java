@@ -17,10 +17,6 @@ public class CaseMer extends Case {
 		super(positionX, positionY);
 	}
 
-	public void afficher() {
-		//TODO
-	}
-
 	public boolean estAttaque(int puiss) {
 		LOGGER.info("tir dans la mer "+ this.toString());
 		return false;

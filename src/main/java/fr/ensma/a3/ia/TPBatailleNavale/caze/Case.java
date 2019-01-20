@@ -1,12 +1,13 @@
 package fr.ensma.a3.ia.TPBatailleNavale.caze;
 
+
 /**
  * une case
  * 
  * @author yinyiliang
  *
  */
-public abstract class Case implements IEstAttaque {
+public abstract class Case implements ICase {
 	
 	private int positionX;
 	private int positionY;
@@ -34,9 +35,5 @@ public abstract class Case implements IEstAttaque {
 		return positionY;
 	}
 
-	public boolean equals(Case obj) {
-		return this.positionX == obj.getPosX() && this.positionY == obj.getPosY();
-	}
-	
-	
+
 }

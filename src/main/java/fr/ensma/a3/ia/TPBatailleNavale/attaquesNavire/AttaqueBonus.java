@@ -11,7 +11,7 @@ import fr.ensma.a3.ia.TPBatailleNavale.joueur.AbsJoueur;
  * @author yinyiliang
  *
  */
-public class AttaqueBonus implements IAttaque{
+public class AttaqueBonus  extends AbsAttaque {
 
 	private final static Logger LOGGER = Logger.getLogger(AttaqueBonus.class.getName());
 	private final static int bonus = 2;
@@ -25,8 +25,9 @@ public class AttaqueBonus implements IAttaque{
 
 	private void attaqueEnBonus(AbsJoueur joueur, AbsJoueur adverse, int posX, int posY, int puissbonus) {
 		Case caze = adverse.getGrillep().getCaze(posX, posY);
-		LOGGER.info("Attaque en bonus a la case:"+caze.toString());
-		joueur.getGrillem().addPion(caze, caze.estAttaque(puissbonus));
+		LOGGER.info(joueur+ " attaque en bonus a la case:"+caze.toString()+" de "+adverse);
+		int puiss1 = checkbombe(adverse, posX, posY, puissbonus);
+		joueur.getGrillem().addPion(caze, caze.estAttaque(puiss1));
 	}
 
 	public void aLAttaque(AbsJoueur joueur, AbsJoueur adversal, Case caze, int puiss) {

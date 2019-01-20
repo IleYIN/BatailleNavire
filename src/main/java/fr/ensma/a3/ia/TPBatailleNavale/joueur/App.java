@@ -9,6 +9,8 @@ public class App {
 		humain.initialiserRandomGrilleP();
 		AbsJoueur ordinateur = new Ordinateur();
 		ordinateur.initialiserRandomGrilleP();
+		
+		humain.alAttaque(humain.getRandomNavireAttaque(), ordinateur, 5, 3);
 
 
 		//		System.out.println("-------humain grilleplacement---------");
@@ -22,17 +24,12 @@ public class App {
 
 		System.out.println("-------ordinateur grilleplacement---------");
 
-		//		Navire porteAvionOrdi = new PorteAvion(2, 2, false, new AttaqueClassique());
-		//		Navire torpilleurOrdi = new Torpilleur(5, 3, true, new AttaqueClassique());
-		//		ordinateur.getGrilleb().getGrillePlacement().addNavires(porteAvionOrdi,torpilleurOrdi);
-		//		
-		//mettre une navire dans la grille
 		for(Case caze : ordinateur.getGrillep().getLcaze() ) {
 			System.out.println(caze.toString());
 		}
 
 		//		porteAvionOrdi.deplacerX(ordinateur, 8);
-		//		porteAvionOrdi.deplacerX(ordinateur, 2);
+//				porteAvionOrdi.deplacerX(ordinateur, 2);
 		//		porteAvionOrdi.pivoter(ordinateur, 6, 2);
 		//		porteAvionOrdi.pivoter(ordinateur, 2, 2);
 		//		torpilleurOrdi.pivoter(ordinateur, 5, 3);
@@ -43,5 +40,7 @@ public class App {
 		for(Case caze : ordinateur.getGrillep().getLcaze() ) {
 			System.out.println(caze.toString());
 		}
+		
+		
 	}
 }
