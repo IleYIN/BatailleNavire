@@ -9,6 +9,12 @@ import fr.ensma.a3.ia.TPBatailleNavale.automateNavire.IGestionEtatNavire;
 import fr.ensma.a3.ia.TPBatailleNavale.caze.CaseNavire;
 import fr.ensma.a3.ia.TPBatailleNavale.joueur.IJoueur;
 
+/**
+ * interface d'une navire
+ * 
+ * @author yinyiliang
+ *
+ */
 public interface INavire extends IEtatNavire, IGestionEtatNavire {
 
 	public int getPosX();

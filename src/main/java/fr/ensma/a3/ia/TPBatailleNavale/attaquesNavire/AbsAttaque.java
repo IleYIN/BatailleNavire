@@ -19,11 +19,11 @@ public abstract class AbsAttaque implements IAttaque{
 	
 	/**
 	 * 
-	 * @param adverse
-	 * @param posX
-	 * @param posY
-	 * @param puiss
-	 * @return
+	 * @param adverse joueur adverse
+	 * @param posX check si la position X est la meme que celle de la bombe
+	 * @param posY check si la position Y est la meme que celle de la bombe
+	 * @param puiss modifier la puissance attaque si la position est meme
+	 * @return retourner la nouvelle puissance attaque
 	 */
 	public int checkbombe(IJoueur adverse, int posX, int posY, int puiss) {
 		

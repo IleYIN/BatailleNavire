@@ -1,5 +1,11 @@
 package fr.ensma.a3.ia.TPBatailleNavale.pion;
 
+/**
+ * Couleur d'un pion
+ * 
+ * @author yinyiliang
+ *
+ */
 public enum ECouleur {
 	
 	blanc(0), rouge(1);

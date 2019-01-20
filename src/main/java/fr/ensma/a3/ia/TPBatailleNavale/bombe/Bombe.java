@@ -54,7 +54,11 @@ public class Bombe {
 		this.resistance = resistance;
 	}
 
-
+	/**
+	 * 
+	 * @param puiss la puissance attaque
+	 * @return retourner la nouvelle puissance attaque 
+	 */
 	public int estAttaque(int puiss) {
 		LOGGER.info("tir dans une bombe "+this.toString());
 		int r = this.getResistance();
