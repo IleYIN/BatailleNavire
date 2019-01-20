@@ -1,15 +1,15 @@
 package fr.ensma.a3.ia.TPBatailleNavale.grille;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.logging.Logger;
 
 import fr.ensma.a3.ia.TPBatailleNavale.bombe.Bombe;
-import fr.ensma.a3.ia.TPBatailleNavale.caze.Case;
 import fr.ensma.a3.ia.TPBatailleNavale.caze.CaseMer;
 import fr.ensma.a3.ia.TPBatailleNavale.caze.CaseNavire;
+import fr.ensma.a3.ia.TPBatailleNavale.caze.ICase;
+import fr.ensma.a3.ia.TPBatailleNavale.navires.ENavire;
 import fr.ensma.a3.ia.TPBatailleNavale.navires.INavire;
-import fr.ensma.a3.ia.TPBatailleNavale.navires.Voilier;
 
 
 /**
@@ -23,14 +23,14 @@ public class GrillePlacement extends Grille implements IGrilleP {
 
 	private final static Logger LOGGER = Logger.getLogger(GrillePlacement.class.getName());
 
-	private final List<INavire> lnavire;
+	private final Map<ENavire,INavire> lnavire;
 
 	private Bombe bombe;
 
 
 	public GrillePlacement() {
 		super();
-		lnavire = new ArrayList<INavire>();
+		lnavire = new HashMap<ENavire,INavire>();
 		//initialer une bombe
 		this.bombe = Bombe.retournerUneBombe();
 	}
@@ -43,14 +43,14 @@ public class GrillePlacement extends Grille implements IGrilleP {
 		return bombe;
 	}
 
-	public List<INavire> getLnavire() {
+
+	public Map<ENavire, INavire> getLnavire() {
 		return lnavire;
 	}
 
-
 	private boolean OKToPlaceNavire(INavire nav, int posX, int posY, boolean ori) {
 
-		Case caze = this.getCaze(posX, posY);
+		ICase caze = this.getCaze(posX, posY);
 
 		if(caze instanceof CaseNavire || caze == null) {
 			return false;
@@ -107,7 +107,7 @@ public class GrillePlacement extends Grille implements IGrilleP {
 				}
 			}
 
-			lnavire.add(nav);
+			lnavire.put(nav.getEnav(), nav);
 		} else {
 			LOGGER.info("impossible d'ajouter la navire");
 		}
@@ -187,7 +187,7 @@ public class GrillePlacement extends Grille implements IGrilleP {
 				//poser les cases navires dans la grille
 				this.setCaze(cazeNav.getPosX(), cazeNav.getPosY(), cazeNav);
 			}
-			LOGGER.info(nav.toString() + " deplace dans la direction x de "+x);
+			LOGGER.info(nav.toString() + "a deplace dans la direction x de "+x);
 
 		} else {//remettre les cases navires a la position originale dans la grille
 			for(CaseNavire cazeNav : nav.getLcaseNav()) {
@@ -195,7 +195,7 @@ public class GrillePlacement extends Grille implements IGrilleP {
 				int posY = cazeNav.getPosY();
 				this.setCaze(posX, posY, cazeNav);
 			}
-			LOGGER.info("impossible de deplacer dans la direction x de "+x);
+			LOGGER.info(nav.toString()+"impossible de deplacer dans la direction x de "+x);
 		}
 	}
 
@@ -236,7 +236,7 @@ public class GrillePlacement extends Grille implements IGrilleP {
 				int posY = cazeNav.getPosY();
 				this.setCaze(posX, posY, cazeNav);
 			}
-			LOGGER.info("impossible de deplacer dans la direction y de "+y);
+			LOGGER.info(nav.toString()+"impossible de deplacer dans la direction y de "+y);
 		}
 	}
 
@@ -273,14 +273,14 @@ public class GrillePlacement extends Grille implements IGrilleP {
 					cazeNav.setPosY(cazeNav.getPosY()-d);
 					this.setCaze(cazeNav.getPosX(), cazeNav.getPosY(), cazeNav);
 				}
-				LOGGER.info(nav.toString()+ " pivote a la direction "+nav.isOri());
+				LOGGER.info(nav.toString()+ " pivote a la direction "+ (nav.isOri()?"horizontal":"vertical"));
 			} else {
 				for(CaseNavire cazeNav : nav.getLcaseNav()) {
 					int pX = cazeNav.getPosX();
 					int pY = cazeNav.getPosY();
 					this.setCaze(pX, pY, cazeNav);
 				}
-				LOGGER.info("impossible de pivoter");
+				LOGGER.info(nav.toString()+"impossible de pivoter");
 			}
 
 		} else {
@@ -317,14 +317,14 @@ public class GrillePlacement extends Grille implements IGrilleP {
 		pivoter(nav, cazeNav.getPosX(), cazeNav.getPosY());
 	}
 
-	public INavire getRandomNavireAttaque() {
-		int i = (int) (Math.random() * this.getLnavire().size());
-		while (!(this.getLnavire().get(i).getEtatCourant().equals(this.getLnavire().get(i).getEnFonction()))
-				|| (this.getLnavire().get(i) instanceof Voilier)) {
-			i = (int) (Math.random() * this.getLnavire().size());
-		}
-		return this.getLnavire().get(i);
-	}
+//	public INavire getRandomNavireAttaque() {
+//		int i = (int) (Math.random() * this.getLnavire().size());
+//		while (!(this.getLnavire().get(i).getEtatCourant().equals(this.getLnavire().get(i).getEnFonction()))
+//				|| (this.getLnavire().get(i) instanceof Voilier)) {
+//			i = (int) (Math.random() * this.getLnavire().size());
+//		}
+//		return this.getLnavire().get(i);
+//	}
 
 	public void explodeBombe() {
 
@@ -422,8 +422,18 @@ public class GrillePlacement extends Grille implements IGrilleP {
 	}
 	
 	
-	public INavire getNavire(class ) {
-		
+	public INavire getNavire(ENavire enav) {
+		if(this.getLnavire().keySet().contains(enav)){
+			return this.getLnavire().get(enav);
+		} else {
+			LOGGER.info("la navire "+enav+" n'existe pas.");
+			return null;
+		}
+	}
+
+	
+	public void addNavire(INavire nav, ICase caze, boolean ori) {
+		addNavire(nav, caze.getPosX(), caze.getPosY(), ori);
 	}
 
 }

@@ -21,6 +21,14 @@ public class EnPanne extends AbstractEtatNavire {
 	}
 	
 	@Override
+	public void estEnPanne() throws ActionNavireNonPermiseException {
+
+		monautom.setEtatCourant(monautom.getEnPanne());
+		//reste en panne mais pas detruit
+	}
+
+	
+	@Override
 	public void estEnDetruit() throws ActionNavireNonPermiseException {
 	
 		monautom.setEtatCourant(monautom.getEnDetruitNavire());

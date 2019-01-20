@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 
-import fr.ensma.a3.ia.TPBatailleNavale.caze.Case;
+import fr.ensma.a3.ia.TPBatailleNavale.caze.ICase;
 import fr.ensma.a3.ia.TPBatailleNavale.pion.ECouleur;
 import fr.ensma.a3.ia.TPBatailleNavale.pion.Pion;
 
@@ -39,7 +39,7 @@ public class GrilleMemoire extends Grille implements IGrilleM {
 		}
 	}
 
-	public void addPion(Case caze, boolean tir) {
+	public void addPion(ICase caze, boolean tir) {
 		addPion(caze.getPosX(),caze.getPosY(),tir);
 	}
 

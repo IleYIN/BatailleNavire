@@ -1,7 +1,7 @@
 package fr.ensma.a3.ia.TPBatailleNavale.attaquesNavire;
 
-import fr.ensma.a3.ia.TPBatailleNavale.caze.Case;
-import fr.ensma.a3.ia.TPBatailleNavale.joueur.AbsJoueur;
+import fr.ensma.a3.ia.TPBatailleNavale.caze.ICase;
+import fr.ensma.a3.ia.TPBatailleNavale.joueur.IJoueur;
 
 /**
  * interface attaque d'une navire
@@ -20,7 +20,7 @@ public interface IAttaque {
 	 * @param posY   la position Y de l'attaque
 	 * @param puiss  la puissance d'attaque
 	 */
-	public void aLAttaque(AbsJoueur joueur, AbsJoueur adversal, int posX, int posY, int puiss);
-	public void aLAttaque(AbsJoueur joueur, AbsJoueur adversal, Case caze, int puiss);
+	public void aLAttaque(IJoueur joueur, IJoueur adversal, int posX, int posY, int puiss);
+	public void aLAttaque(IJoueur joueur, IJoueur adversal, ICase caze, int puiss);
 
 }

@@ -56,7 +56,7 @@ public class Bombe {
 
 
 	public int estAttaque(int puiss) {
-		LOGGER.info("tir dans une bombe");
+		LOGGER.info("tir dans une bombe "+this.toString());
 		int r = this.getResistance();
 		if(r > puiss) {
 			this.setResistance(r-puiss);
@@ -65,6 +65,11 @@ public class Bombe {
 			this.setResistance(0);
 			return (puiss - r);
 		}
+	}
+	
+	@Override
+	public String toString() {
+		return "Bombe("+this.posX+","+this.posY+")-nvie:"+this.resistance;
 	}
 	
 

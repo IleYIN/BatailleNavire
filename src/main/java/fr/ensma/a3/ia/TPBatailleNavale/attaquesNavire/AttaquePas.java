@@ -1,12 +1,11 @@
 package fr.ensma.a3.ia.TPBatailleNavale.attaquesNavire;
 
 import java.util.logging.Logger;
-import fr.ensma.a3.ia.TPBatailleNavale.caze.Case;
-import fr.ensma.a3.ia.TPBatailleNavale.caze.IEstAttaque;
-import fr.ensma.a3.ia.TPBatailleNavale.joueur.AbsJoueur;
+import fr.ensma.a3.ia.TPBatailleNavale.caze.ICase;
+import fr.ensma.a3.ia.TPBatailleNavale.joueur.IJoueur;
 
 /**
- * Attaque pas si la navire est en panne (toutes les cases navire sont touche)
+ * Attaque pas si la navire est en panne (toutes les ICases navire sont touche)
  * 
  * @author yinyiliang
  *
@@ -17,18 +16,18 @@ public class AttaquePas extends AbsAttaque {
 	
 
 
-	public void aLAttaque(AbsJoueur joueur, AbsJoueur adverse, int posX, int posY, int puiss) {
+	public void aLAttaque(IJoueur joueur, IJoueur adverse, int posX, int posY, int puiss) {
 	
 		attaquePas(joueur, adverse, posX, posY, puiss);
 
 	}
 
-	private void attaquePas(AbsJoueur joueur, AbsJoueur adverse, int posX, int posY, int puiss) {
-		Case caze = adverse.getGrillep().getCaze(posX, posY);
+	private void attaquePas(IJoueur joueur, IJoueur adverse, int posX, int posY, int puiss) {
+		ICase caze = adverse.getGrillep().getCaze(posX, posY);
 		LOGGER.info(joueur+ "ne peut pas attaquer a la case "+caze.toString()+" de "+adverse);
 	}
 
-	public void aLAttaque(AbsJoueur joueur, AbsJoueur adversal, Case caze, int puiss) {
+	public void aLAttaque(IJoueur joueur, IJoueur adversal, ICase caze, int puiss) {
 		aLAttaque(joueur, adversal, caze.getPosX(), caze.getPosY(), puiss);
 		
 	}

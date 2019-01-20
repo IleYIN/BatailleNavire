@@ -11,7 +11,7 @@ import fr.ensma.a3.ia.TPBatailleNavale.automateNavire.etatsNavire.EnDetruitNavir
 import fr.ensma.a3.ia.TPBatailleNavale.automateNavire.etatsNavire.EnFonction;
 import fr.ensma.a3.ia.TPBatailleNavale.automateNavire.etatsNavire.EnPanne;
 import fr.ensma.a3.ia.TPBatailleNavale.caze.CaseNavire;
-import fr.ensma.a3.ia.TPBatailleNavale.joueur.AbsJoueur;
+import fr.ensma.a3.ia.TPBatailleNavale.joueur.IJoueur;
 
 /**
  * les navires avec des differents types
@@ -37,6 +37,10 @@ public abstract class Navire implements INavire {
 	protected IEtatNavire enDetruitNavire = new EnDetruitNavire(this);
 
 
+	public ENavire getEnav() {
+		return enav;
+	}
+
 	public int getPosX() {
 		return posX;
 	}
@@ -53,7 +57,7 @@ public abstract class Navire implements INavire {
 		this.posY = posY;
 	}
 
-	
+
 	public boolean isOri() {
 		return ori;
 	}
@@ -61,7 +65,7 @@ public abstract class Navire implements INavire {
 	public void setOri(boolean ori) {
 		this.ori = ori;
 	}
-	
+
 	public IAttaque getCompoAttaque() {
 		return compoAttaque;
 	}
@@ -106,24 +110,24 @@ public abstract class Navire implements INavire {
 		return nvieCase;
 	}
 
-	
-
-
-//	public Navire(String id, final int longueur, IAttaque compoA, final int nvieCase) {
-//
-//		this.id = id;
-//		this.longueur = longueur;
-//		this.compoAttaque = compoA;
-//		this.nvieCase = nvieCase;
-//		this.puissanceAttaque = longueur;
-//		this.etatCourant = enFonction;
-//		lcaseNav = new ArrayList<CaseNavire> ();
-//
-//	}
 
 
 
-	public void aLAttaque(AbsJoueur joueur, AbsJoueur adversal, int posX,int posY) {
+	//	public Navire(String id, final int longueur, IAttaque compoA, final int nvieCase) {
+	//
+	//		this.id = id;
+	//		this.longueur = longueur;
+	//		this.compoAttaque = compoA;
+	//		this.nvieCase = nvieCase;
+	//		this.puissanceAttaque = longueur;
+	//		this.etatCourant = enFonction;
+	//		lcaseNav = new ArrayList<CaseNavire> ();
+	//
+	//	}
+
+
+
+	public void aLAttaque(IJoueur joueur, IJoueur adversal, int posX,int posY) {
 		compoAttaque.aLAttaque(joueur, adversal, posX, posY,puissanceAttaque);
 	}
 
@@ -160,7 +164,9 @@ public abstract class Navire implements INavire {
 			}
 		}
 
-		this.setPuissanceAttaque(this.getPuissanceAttaque() - panne - detruit);
+		if(this.getPuissanceAttaque()>0) {
+			this.setPuissanceAttaque(this.getPuissanceAttaque() - panne - detruit);
+		}
 	}
 
 
@@ -203,7 +209,7 @@ public abstract class Navire implements INavire {
 
 	@Override
 	public String toString() {
-		return "-("+this.posX+","+this.posY+","+this.ori+","+this.longueur+")"+"puiss:"+this.getPuissanceAttaque();
+		return "-[("+this.posX+","+this.posY+"),"+(this.ori?"horizontal":"vertical")+",len:"+this.longueur+",puiss:"+this.getPuissanceAttaque()+"]";
 	}
 
 }

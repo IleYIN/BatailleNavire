@@ -7,7 +7,7 @@ import fr.ensma.a3.ia.TPBatailleNavale.attaquesNavire.IAttaque;
 import fr.ensma.a3.ia.TPBatailleNavale.automateNavire.IEtatNavire;
 import fr.ensma.a3.ia.TPBatailleNavale.automateNavire.IGestionEtatNavire;
 import fr.ensma.a3.ia.TPBatailleNavale.caze.CaseNavire;
-import fr.ensma.a3.ia.TPBatailleNavale.joueur.AbsJoueur;
+import fr.ensma.a3.ia.TPBatailleNavale.joueur.IJoueur;
 
 public interface INavire extends IEtatNavire, IGestionEtatNavire {
 
@@ -20,7 +20,7 @@ public interface INavire extends IEtatNavire, IGestionEtatNavire {
 	public boolean isOri();
 	public void setOri(boolean ori);
 	
-	public void aLAttaque(AbsJoueur joueur, AbsJoueur adverse, int posX,int posY);
+	public void aLAttaque(IJoueur joueur, IJoueur adverse, int posX,int posY);
 	
 	public IAttaque getCompoAttaque();
 	public void setCompoAttaque(IAttaque att);
@@ -36,6 +36,8 @@ public interface INavire extends IEtatNavire, IGestionEtatNavire {
 	
 	public List<CaseNavire> getLcaseNav();
 	public void setLcaseNav(List<CaseNavire> lcaseNav);
+	
+	public ENavire getEnav();
 	
 	public String toString();
 	

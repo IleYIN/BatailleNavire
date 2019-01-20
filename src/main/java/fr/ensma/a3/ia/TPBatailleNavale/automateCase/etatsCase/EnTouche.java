@@ -22,6 +22,13 @@ public class EnTouche extends AbstractEtatCase {
 	}
 	
 	@Override
+	public void subirAttaque() throws ActionCaseNonPermiseException {
+		
+		monautom.setEtatCourant(monautom.getEnTouche());
+		//reste en touche mais pas detruit
+	}
+	
+	@Override
 	public void toDetruit() throws ActionCaseNonPermiseException {
 	
 		monautom.setEtatCourant(monautom.getEnDetruit());

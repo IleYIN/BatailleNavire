@@ -15,4 +15,9 @@ public class EnDetruitNavire extends AbstractEtatNavire {
 		super(aut);
 	}
 	
+	@Override
+	public void estEnDetruit() throws ActionNavireNonPermiseException {
+		monautom.setEtatCourant(monautom.getEnDetruitNavire());
+		//rester en detruit
+	}
 }

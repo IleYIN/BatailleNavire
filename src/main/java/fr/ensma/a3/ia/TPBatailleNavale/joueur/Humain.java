@@ -1,5 +1,6 @@
 package fr.ensma.a3.ia.TPBatailleNavale.joueur;
 
+
 /**
  * Joueur Humain
  * 
@@ -15,4 +16,5 @@ public class Humain extends AbsJoueur {
 		public String toString() {
 			return super.toString()+"Humain";
 		}
+	
 }

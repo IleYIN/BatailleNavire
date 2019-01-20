@@ -1,6 +1,6 @@
 package fr.ensma.a3.ia.TPBatailleNavale.grille;
 
-import fr.ensma.a3.ia.TPBatailleNavale.caze.Case;
+import fr.ensma.a3.ia.TPBatailleNavale.caze.ICase;
 
 /**
  * interface Grille
@@ -12,7 +12,7 @@ import fr.ensma.a3.ia.TPBatailleNavale.caze.Case;
  */
 public interface IGrilleM extends IGrille {
 	
-	public void addPion(Case caze, boolean tir);
+	public void addPion(ICase caze, boolean tir);
 	public void addPion(int posX, int posY, boolean tir);
 	
 }

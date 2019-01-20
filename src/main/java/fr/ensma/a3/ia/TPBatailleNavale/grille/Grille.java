@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 
-import fr.ensma.a3.ia.TPBatailleNavale.caze.Case;
+import fr.ensma.a3.ia.TPBatailleNavale.caze.ICase;
 import fr.ensma.a3.ia.TPBatailleNavale.caze.CaseMer;
 
 
@@ -17,14 +17,14 @@ import fr.ensma.a3.ia.TPBatailleNavale.caze.CaseMer;
 
 public abstract class Grille implements IGrille {
 	
-	protected List<Case> lcaze;
+	protected List<ICase> lcaze;
 	protected final static int taille = 10;// 10 * 10 cases
 	private final static Logger LOGGER = Logger.getLogger(Grille.class.getName());
 	
 
 	public Grille() {
 
-		lcaze = new ArrayList<Case>();
+		lcaze = new ArrayList<ICase>();
 
 		for (int posX = 0; posX < taille; posX++) {
 			for (int posY = 0; posY < taille; posY++) {
@@ -39,14 +39,14 @@ public abstract class Grille implements IGrille {
 		return taille;
 	}
 
-	public void setCaze(int posX, int posY, Case caze) {
+	public void setCaze(int posX, int posY, ICase caze) {
 		lcaze.remove(getCaze(posX, posY));
 		lcaze.add(caze);
 
 	}
 
-	public Case getCaze(int posX, int posY) {
-		for(Case caze : lcaze) {
+	public ICase getCaze(int posX, int posY) {
+		for(ICase caze : lcaze) {
 			if (posX == caze.getPosX() && posY == caze.getPosY()) {
 				return caze;
 			}
@@ -56,7 +56,7 @@ public abstract class Grille implements IGrille {
 	}
 
 
-	public List<Case> getLcaze() {
+	public List<ICase> getLcaze() {
 		return lcaze;
 	}
 

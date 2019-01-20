@@ -1,46 +1,73 @@
 package fr.ensma.a3.ia.TPBatailleNavale.joueur;
 
-import fr.ensma.a3.ia.TPBatailleNavale.caze.Case;
+import fr.ensma.a3.ia.TPBatailleNavale.attaquesNavire.AttaqueEnCroix;
+import fr.ensma.a3.ia.TPBatailleNavale.caze.CaseNavire;
+import fr.ensma.a3.ia.TPBatailleNavale.caze.ICase;
+import fr.ensma.a3.ia.TPBatailleNavale.navires.ENavire;
+import fr.ensma.a3.ia.TPBatailleNavale.navires.INavire;
 
 public class App {
 	public static void main(String[] args) {
 
-		AbsJoueur humain = new Humain();
+		IJoueur humain = new Humain();
 		humain.initialiserRandomGrilleP();
-		AbsJoueur ordinateur = new Ordinateur();
+		IJoueur ordinateur = new Ordinateur();
 		ordinateur.initialiserRandomGrilleP();
 		
-		humain.alAttaque(humain.getRandomNavireAttaque(), ordinateur, 5, 3);
 
-
-		//		System.out.println("-------humain grilleplacement---------");
-		//		Navire croiseurHum = new Croiseur(0, 0, true, new AttaqueClassique());
-		//		Navire sousMarinHum = new SousMarin(5, 5, true, new AttaqueEnCroix());
-		//		humain.getGrilleb().getGrillePlacement().addNavires(croiseurHum,sousMarinHum);
-		////		mettre une navire dans la grille
-		//		for(Case caze : humain.getGrilleb().getGrillePlacement().getLcaze() ) {
-		//			System.out.println(caze.toString());
-		//		}
-
-		System.out.println("-------ordinateur grilleplacement---------");
-
-		for(Case caze : ordinateur.getGrillep().getLcaze() ) {
-			System.out.println(caze.toString());
-		}
-
-		//		porteAvionOrdi.deplacerX(ordinateur, 8);
-//				porteAvionOrdi.deplacerX(ordinateur, 2);
-		//		porteAvionOrdi.pivoter(ordinateur, 6, 2);
-		//		porteAvionOrdi.pivoter(ordinateur, 2, 2);
-		//		torpilleurOrdi.pivoter(ordinateur, 5, 3);
-
-
-
-		System.out.println("-------ordinateur grilleplacement---------");
-		for(Case caze : ordinateur.getGrillep().getLcaze() ) {
-			System.out.println(caze.toString());
+		System.out.println("-------humain grilleplacement---------");
+		for(ICase caze : humain.getGrillep().getLcaze() ) {
+			if(caze instanceof CaseNavire) {
+				System.out.println(caze.toString());
+			}
 		}
 		
 		
+		humain.deplacerX(humain.getNavire(ENavire.PorteAvion), 3);
+		humain.deplacerY(humain.getNavire(ENavire.PorteAvion), 1);
+		humain.pivoter(humain.getNavire(ENavire.PorteAvion), 
+				humain.getNavire(ENavire.PorteAvion).getPosX(),
+				humain.getNavire(ENavire.PorteAvion).getPosY());
+		
+		
+		System.out.println("-------humain grilleplacement---------");
+		for(ICase caze : humain.getGrillep().getLcaze() ) {
+			if(caze instanceof CaseNavire) {
+				System.out.println(caze.toString());
+			}
+		}
+		
+		System.out.println("-------ordinateur grilleplacement---------");
+		
+		for(ICase caze : ordinateur.getGrillep().getLcaze() ) {
+			if(caze instanceof CaseNavire) {
+				System.out.println(caze.toString());
+			}
+		}
+		
+		humain.alAttaque(humain.getNavire(ENavire.SousMarin), ordinateur, 4, 6);
+		
+		INavire nav = humain.getNavire(ENavire.PorteAvion);
+//		nav.setCompoAttaque(new AttaqueEnCroix());
+		
+		for(int i=0;i<=9;i++) {
+			for(int j=0;j<=9;j++) {
+				nav.aLAttaque(humain, ordinateur, i, j);
+			}
+		}
+		/*nav.aLAttaque(humain, ordinateur, 2, 2);
+		nav.aLAttaque(humain, ordinateur, 4, 4);
+		nav.aLAttaque(humain, ordinateur, 6, 6);
+		nav.aLAttaque(humain, ordinateur, 8, 8);*/
+		
+		System.out.println("-------ordinateur grilleplacement---------");
+
+		for(ICase caze : ordinateur.getGrillep().getLcaze() ) {
+			if(caze instanceof CaseNavire) {
+				System.out.println(caze.toString());
+			}
+		}
+		
+
 	}
 }
