@@ -14,7 +14,7 @@ import fr.ensma.a3.ia.TPBatailleNavale.automateCase.etatsCase.EnTouche;
  * @author yinyiliang
  *
  */
-public class CaseNavire extends Case implements IEtatCaseN, IGestionEtatCaseN {
+public class CaseNavire extends Case implements IGestionEtatCaseN {
 
 	private final static Logger LOGGER = Logger.getLogger(CaseNavire.class.getName());
 	private int nvie;
@@ -101,16 +101,4 @@ public class CaseNavire extends Case implements IEtatCaseN, IGestionEtatCaseN {
 		return enNormal;
 	}
 
-
-	public void subirAttaque() throws ActionCaseNonPermiseException {
-	}
-
-
-	public void retournerEnNormal() throws ActionCaseNonPermiseException {
-	}
-
-
-	public void toDetruit() throws ActionCaseNonPermiseException {
-	}
-	
 }

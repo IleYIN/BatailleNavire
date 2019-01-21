@@ -105,17 +105,6 @@ public class GrillePlacement extends Grille implements IGrilleP {
 			nav.setPosY(posY);
 			nav.setOri(ori);
 
-			if(nav.getEnav().equals(ENavire.PorteAvion)) {
-
-				//ori==false horizontal    ori==true vertical
-				//la deuxieme ligne(horizontal) ou colonne(vertical)
-				for( int i=0; i<3; i++) {
-					CaseNavire cazeNav = new CaseNavire(posX+(ori?0:i)+(ori?1:0), posY+(ori?i:0)+(ori?0:1), nav.getNvieCase());
-					nav.getLcaseNav().add(cazeNav);
-					this.setCaze(cazeNav.getPosX(), cazeNav.getPosY(), cazeNav);
-				}
-
-			} 
 
 			for( int i=0; i<nav.getLongueur(); i++) {
 				CaseNavire cazeNav = new CaseNavire(posX+(ori?0:i), posY+(ori?i:0), nav.getNvieCase());
@@ -123,6 +112,18 @@ public class GrillePlacement extends Grille implements IGrilleP {
 				this.setCaze(cazeNav.getPosX(), cazeNav.getPosY(), cazeNav);
 			}
 
+			if(nav.getEnav().equals(ENavire.PorteAvion)) {
+				
+				//ori==false horizontal    ori==true vertical
+				//la deuxieme ligne(horizontal) ou colonne(vertical)
+				for( int i=0; i<3; i++) {
+					CaseNavire cazeNav = new CaseNavire(posX+(ori?0:i)+(ori?1:0), posY+(ori?i:0)+(ori?0:1), nav.getNvieCase());
+					nav.getLcaseNav().add(cazeNav);
+					this.setCaze(cazeNav.getPosX(), cazeNav.getPosY(), cazeNav);
+				}
+				
+			} 
+			
 			if(!mapnavire.containsKey(nav.getEnav())) {
 				mapnavire.put(nav.getEnav(),new ArrayList<INavire>());
 			}
@@ -343,7 +344,7 @@ public class GrillePlacement extends Grille implements IGrilleP {
 					int pY = cazeNav.getPosY();
 					this.setCaze(pX, pY, cazeNav);
 				}
-				LOGGER.info("impossible de pivoter");
+				LOGGER.info(nav.toString()+"impossible de pivoter");
 			}
 
 		}

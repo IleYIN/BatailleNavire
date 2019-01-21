@@ -71,12 +71,13 @@ public class App {
 		humain.alAttaque(humain.getNavire(ENavire.SousMarin), ordinateur, 4, 6);
 
 		humain.aLEclair(ordinateur, 6,7);
+		
 
 		INavire na = humain.getNavire(ENavire.PorteAvion);
 		//		nav.setCompoAttaque(new AttaqueEnCroix());
 
-		for(int i=0;i<=9;i++) {
-			for(int j=0;j<=9;j++) {
+		for(int i=0;i<=(int)(Math.random()*10);i++) {
+			for(int j=0;j<=(int)(Math.random()*10);j++) {
 				na.aLAttaque(humain, ordinateur, i, j);
 			}
 		}

@@ -152,6 +152,7 @@ public abstract class Navire implements INavire {
 			try {
 				etatCourant.estEnDetruit();
 				this.setCompoAttaque(new AttaquePas());
+				this.setPuissanceAttaque(0);
 			} catch (ActionNavireNonPermiseException e) {
 				LOGGER.info(this+e.getMessage());
 			}
@@ -159,18 +160,15 @@ public abstract class Navire implements INavire {
 			try {
 				etatCourant.estEnPanne();
 				this.setCompoAttaque(new AttaquePas());
+				this.setPuissanceAttaque(0);
 			} catch (ActionNavireNonPermiseException e) {
 				LOGGER.info(this+e.getMessage());
-			}
+			} 
+		} else if(panne+detruit<this.getLongueur()) {
+			this.setPuissanceAttaque(this.getLongueur()-panne-detruit);
 		}
-
-		if(this.getPuissanceAttaque()>panne+detruit) {
-			this.setPuissanceAttaque(this.getPuissanceAttaque() - panne - detruit);
-		} else {
-			this.setPuissanceAttaque(0);
-		}
-		
 	}
+
 
 
 	//ETAT
@@ -198,17 +196,6 @@ public abstract class Navire implements INavire {
 		return enFonction;
 	}
 
-
-	public void estEnPanne() throws ActionNavireNonPermiseException {
-	}
-
-
-	public void retournerEnFonction() throws ActionNavireNonPermiseException {
-	}
-
-
-	public void estEnDetruit() throws ActionNavireNonPermiseException {
-	}
 
 	@Override
 	public String toString() {

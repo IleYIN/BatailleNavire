@@ -2,9 +2,7 @@ package fr.ensma.a3.ia.TPBatailleNavale.navires;
 
 
 import java.util.List;
-
 import fr.ensma.a3.ia.TPBatailleNavale.attaquesNavire.IAttaque;
-import fr.ensma.a3.ia.TPBatailleNavale.automateNavire.IEtatNavire;
 import fr.ensma.a3.ia.TPBatailleNavale.automateNavire.IGestionEtatNavire;
 import fr.ensma.a3.ia.TPBatailleNavale.caze.CaseNavire;
 import fr.ensma.a3.ia.TPBatailleNavale.joueur.IJoueur;
@@ -15,7 +13,7 @@ import fr.ensma.a3.ia.TPBatailleNavale.joueur.IJoueur;
  * @author yinyiliang
  *
  */
-public interface INavire extends IEtatNavire, IGestionEtatNavire {
+public interface INavire extends IGestionEtatNavire {
 
 	public int getPosX();
 	public void setPosX(int posX);
