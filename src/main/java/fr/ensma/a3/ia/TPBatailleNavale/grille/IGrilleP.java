@@ -1,5 +1,6 @@
 package fr.ensma.a3.ia.TPBatailleNavale.grille;
 
+import java.util.List;
 import java.util.Map;
 
 import fr.ensma.a3.ia.TPBatailleNavale.bombe.Bombe;
@@ -22,9 +23,11 @@ public interface IGrilleP extends IDeplacer, IGrille {
 	public void addRandomNavire(INavire nav);
 	public void addRandomNavires(INavire... navs);
 //	public INavire getRandomNavireAttaque();
-	public  Map<ENavire, INavire> getLnavire();
+	public  Map<ENavire, List<INavire>> getMapnavire();
 	public void setBombe(Bombe bombe);
 	public Bombe getBombe();
 	public void explodeBombe();
 	public INavire getNavire(ENavire enav);
+	public INavire getNavire(ENavire enav,int i);
+	public void estAttaque();
 }

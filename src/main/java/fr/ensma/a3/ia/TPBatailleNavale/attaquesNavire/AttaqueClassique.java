@@ -18,7 +18,7 @@ public class AttaqueClassique  extends AbsAttaque {
 	public void aLAttaque(IJoueur joueur, IJoueur adverse, int posX, int posY, int puiss) {
 		
 		attaqueClassique(joueur, adverse, posX, posY, puiss);
-		adverse.estAttaque();
+		adverse.getGrillep().estAttaque();
 	}
 
 	private void attaqueClassique(IJoueur joueur, IJoueur adverse, int posX, int posY, int puiss) {

@@ -20,7 +20,7 @@ public class AttaqueBonus  extends AbsAttaque {
 
 	public void aLAttaque(IJoueur joueur, IJoueur adverse, int posX, int posY, int puiss) {
 		attaqueEnBonus(joueur, adverse, posX, posY, puiss+bonus);
-		adverse.estAttaque();
+		adverse.getGrillep().estAttaque();
 	}
 
 	private void attaqueEnBonus(IJoueur joueur, IJoueur adverse, int posX, int posY, int puissbonus) {

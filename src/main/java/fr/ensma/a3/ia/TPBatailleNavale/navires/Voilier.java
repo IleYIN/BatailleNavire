@@ -11,7 +11,7 @@ public class Voilier extends Navire {
 	private static final int longueur = 1;
 
 	public Voilier() {
-		enav = ENavire.Torpilleur;
+		enav = ENavire.Voilier;
 		this.setLongueur(longueur);
 		this.setCompoAttaque(new AttaquePas());
 		this.setNvieCase(4); //Resistance = 4
@@ -29,7 +29,7 @@ public class Voilier extends Navire {
 
 	@Override
 	public String toString() {
-		return "Torpilleur"+super.toString();
+		return "Voilier"+super.toString();
 	}
 
 }

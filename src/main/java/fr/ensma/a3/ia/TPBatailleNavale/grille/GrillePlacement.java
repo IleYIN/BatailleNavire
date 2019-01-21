@@ -1,7 +1,11 @@
 package fr.ensma.a3.ia.TPBatailleNavale.grille;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.logging.Logger;
 
 import fr.ensma.a3.ia.TPBatailleNavale.bombe.Bombe;
@@ -23,14 +27,14 @@ public class GrillePlacement extends Grille implements IGrilleP {
 
 	private final static Logger LOGGER = Logger.getLogger(GrillePlacement.class.getName());
 
-	private final Map<ENavire,INavire> lnavire;
+	private final Map<ENavire,List<INavire>> mapnavire;
 
 	private Bombe bombe;
 
 
 	public GrillePlacement() {
 		super();
-		lnavire = new HashMap<ENavire,INavire>();
+		mapnavire = new HashMap<ENavire,List<INavire>>();
 		//initialer une bombe
 		this.bombe = Bombe.retournerUneBombe();
 	}
@@ -44,8 +48,8 @@ public class GrillePlacement extends Grille implements IGrilleP {
 	}
 
 
-	public Map<ENavire, INavire> getLnavire() {
-		return lnavire;
+	public Map<ENavire, List<INavire>> getMapnavire() {
+		return mapnavire;
 	}
 
 	private boolean OKToPlaceNavirelong(INavire nav, int posX, int posY, boolean ori, int longueur) {
@@ -104,11 +108,6 @@ public class GrillePlacement extends Grille implements IGrilleP {
 			if(nav.getEnav().equals(ENavire.PorteAvion)) {
 
 				//ori==false horizontal    ori==true vertical
-				for( int i=0; i<nav.getLongueur(); i++) {
-					CaseNavire cazeNav = new CaseNavire(posX+(ori?0:i), posY+(ori?i:0), nav.getNvieCase());
-					nav.getLcaseNav().add(cazeNav);
-					this.setCaze(cazeNav.getPosX(), cazeNav.getPosY(), cazeNav);
-				}
 				//la deuxieme ligne(horizontal) ou colonne(vertical)
 				for( int i=0; i<3; i++) {
 					CaseNavire cazeNav = new CaseNavire(posX+(ori?0:i)+(ori?1:0), posY+(ori?i:0)+(ori?0:1), nav.getNvieCase());
@@ -116,20 +115,22 @@ public class GrillePlacement extends Grille implements IGrilleP {
 					this.setCaze(cazeNav.getPosX(), cazeNav.getPosY(), cazeNav);
 				}
 
-				lnavire.put(nav.getEnav(), nav);
+			} 
 
-			} else {
+			for( int i=0; i<nav.getLongueur(); i++) {
+				CaseNavire cazeNav = new CaseNavire(posX+(ori?0:i), posY+(ori?i:0), nav.getNvieCase());
+				nav.getLcaseNav().add(cazeNav);
+				this.setCaze(cazeNav.getPosX(), cazeNav.getPosY(), cazeNav);
+			}
 
-				for( int i=0; i<nav.getLongueur(); i++) {
-					CaseNavire cazeNav = new CaseNavire(posX+(ori?0:i), posY+(ori?i:0), nav.getNvieCase());
-					nav.getLcaseNav().add(cazeNav);
-					this.setCaze(cazeNav.getPosX(), cazeNav.getPosY(), cazeNav);
-				}
+			if(!mapnavire.containsKey(nav.getEnav())) {
+				mapnavire.put(nav.getEnav(),new ArrayList<INavire>());
+			}
 
-				lnavire.put(nav.getEnav(), nav);
+			mapnavire.get(nav.getEnav()).add(nav);
 
 
-				/*if(ori==false) {
+			/*if(ori==false) {
 					for( int i=0; i<nav.getLongueur(); i++) {
 						CaseNavire cazeNav = new CaseNavire(posX+i, posY, nav.getNvieCase());
 						nav.getLcaseNav().add(cazeNav);
@@ -143,7 +144,6 @@ public class GrillePlacement extends Grille implements IGrilleP {
 					}
 				}*/
 
-			}
 
 		} else {
 
@@ -460,13 +460,18 @@ public class GrillePlacement extends Grille implements IGrilleP {
 	}
 
 
-	public INavire getNavire(ENavire enav) {
-		if(this.getLnavire().keySet().contains(enav)){
-			return this.getLnavire().get(enav);
+	public INavire getNavire(ENavire enav,int i) {
+		if(this.getMapnavire().keySet().contains(enav)){
+			return this.getMapnavire().get(enav).get(i);//get la i-eme navire dans la liste
 		} else {
 			LOGGER.info("la navire "+enav+" n'existe pas.");
 			return null;
 		}
+	}
+
+	public INavire getNavire(ENavire enav) {
+		//get la premiere navire dans la liste
+		return getNavire(enav,0);
 	}
 
 
@@ -474,4 +479,45 @@ public class GrillePlacement extends Grille implements IGrilleP {
 		addNavire(nav, caze.getPosX(), caze.getPosY(), ori);
 	}
 
+	public void estAttaque() {
+
+		/**
+		 * Pour remplacer les caseNavires par caseMers 
+		 * et supprimer la navire dans la liste navire
+		 * quand la navire est detruit
+		 */
+		for(ENavire en : this.getMapnavire().keySet()) {
+			List<INavire> ln =  this.getMapnavire().get(en);
+
+			Iterator<INavire> itlist = ln.iterator();
+			while(itlist.hasNext()) {
+				INavire nav = itlist.next();
+				nav.renouvelerEtatNavire();
+				if(nav.getEtatCourant().equals(nav.getEnDetruitNavire())) {
+					itlist.remove();//la navire est detruit
+					LOGGER.info(nav.toString()+" est tombe au fond de la mer");
+					for(CaseNavire cazeNav:nav.getLcaseNav()) {
+						this.setCaze(cazeNav.getPosX(), cazeNav.getPosY(), new CaseMer(cazeNav.getPosX(),cazeNav.getPosY()));
+					}
+				}
+			}
+		}
+
+		/**
+		 * Pour supprimer le key d'un type de navire dans le map navire
+		 * quand ce type de navire n'existe plus
+		 */
+		Iterator<Entry<ENavire, List<INavire>>> it = this.getMapnavire().entrySet().iterator();
+
+		while(it.hasNext()) {
+
+			Entry<ENavire, List<INavire>> entry = it.next();
+			//				
+			if(entry.getValue().isEmpty()) {
+				it.remove();
+			}
+			//			}
+
+		}
+	}
 }

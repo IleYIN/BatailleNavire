@@ -39,7 +39,7 @@ public class SousMarin extends Navire implements IEclair {
 			for(int i=0; i<=res;i++) {
 				for(int j=0; j<=res;j++) {
 					try {
-					LOGGER.info(this.toString()+" affiche la partie de carte de "+adverse.toString()
+					LOGGER.info(this.toString()+" affiche la partie de carte de "+adverse.toString()+" "
 					+adverse.getGrillep().getCaze(posX+i, posY+j).toString());
 					} catch (Exception e) {
 						LOGGER.info("case("+(posX+i)+","+(posY+j)+") de "+adverse.toString()+" n'existe pas.");

@@ -1,5 +1,6 @@
 package fr.ensma.a3.ia.TPBatailleNavale.joueur;
 
+import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
 
@@ -66,8 +67,8 @@ public abstract class AbsJoueur implements IJoueur{
 		grillep.addRandomNavires(navs);
 
 	}
-	public Map<ENavire, INavire> getLnavire() {
-		return grillep.getLnavire();
+	public Map<ENavire, List<INavire>> getLnavire() {
+		return grillep.getMapnavire();
 	}
 	public void deplacerX(INavire nav, int x) {
 		grillep.deplacerX(nav, x);
@@ -100,11 +101,6 @@ public abstract class AbsJoueur implements IJoueur{
 	//		}
 	//	}
 
-	public void estAttaque() {
-		for(INavire nav : grillep.getLnavire().values()) {
-			nav.renouvelerEtatNavire();
-		}
-	}
 	
 	public INavire getNavire(ENavire enav) {
 		return grillep.getNavire(enav);

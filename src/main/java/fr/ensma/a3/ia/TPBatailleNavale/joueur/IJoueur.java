@@ -1,5 +1,6 @@
 package fr.ensma.a3.ia.TPBatailleNavale.joueur;
 
+import java.util.List;
 import java.util.Map;
 
 import fr.ensma.a3.ia.TPBatailleNavale.caze.ICase;
@@ -25,13 +26,12 @@ public interface IJoueur extends IDeplacer, IEclair {
 	public void addRandomNavires(INavire... navs);
 	public void initialiserRandomGrilleP();
 //	public INavire getRandomNavireAttaque();
-	public  Map<ENavire, INavire> getLnavire();
+	public  Map<ENavire, List<INavire>> getLnavire();
 	public void alAttaque(INavire nav, IJoueur ordinateur, int posX, int posY);
 	public String toString();
 	public IGrilleM getGrillem();
 	public IGrilleP getGrillep();
 	public INavire getNavire(ENavire enav);
 	public ICase getCase(int posX, int posY);
-	public void estAttaque();
 	
 }

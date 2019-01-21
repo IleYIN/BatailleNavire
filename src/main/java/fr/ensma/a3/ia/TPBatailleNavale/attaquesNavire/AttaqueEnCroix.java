@@ -17,7 +17,7 @@ public class AttaqueEnCroix extends AbsAttaque {
 
 	public void aLAttaque(IJoueur joueur,IJoueur adverse, int posX, int posY, int puiss) {
 		attaqueEnCroix(joueur,adverse,posX,posY, puiss);
-		adverse.estAttaque();
+		adverse.getGrillep().estAttaque();
 	}
 
 	private void attaqueEnCroix(IJoueur joueur, IJoueur adverse, int posX, int posY, int puiss) {

@@ -164,9 +164,12 @@ public abstract class Navire implements INavire {
 			}
 		}
 
-		if(this.getPuissanceAttaque()>0) {
+		if(this.getPuissanceAttaque()>panne+detruit) {
 			this.setPuissanceAttaque(this.getPuissanceAttaque() - panne - detruit);
+		} else {
+			this.setPuissanceAttaque(0);
 		}
+		
 	}
 
 
