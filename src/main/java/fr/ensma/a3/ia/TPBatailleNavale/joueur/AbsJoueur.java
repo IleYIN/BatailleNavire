@@ -114,6 +114,16 @@ public abstract class AbsJoueur implements IJoueur{
 		return grillep.getCaze(posX, posY);
 	}
 	
+	public void aLEclair(IJoueur adverse, int posX, int posY) {
+		SousMarin sousm = (SousMarin) this.getGrillep().getNavire(ENavire.SousMarin);
+		sousm.aLEclair(adverse, posX, posY);
+	}
+	
+	public void aLEclair(IJoueur adverse, ICase caze) {
+		SousMarin sousm = (SousMarin) this.getGrillep().getNavire(ENavire.SousMarin);
+		sousm.aLEclair(adverse, caze);
+	}
+	
 	@Override
 	public String toString() {
 		return "Joueur-";

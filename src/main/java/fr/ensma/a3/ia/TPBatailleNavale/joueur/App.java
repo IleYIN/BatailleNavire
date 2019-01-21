@@ -1,6 +1,7 @@
 package fr.ensma.a3.ia.TPBatailleNavale.joueur;
 
-import fr.ensma.a3.ia.TPBatailleNavale.attaquesNavire.AttaqueEnCroix;
+import java.util.List;
+
 import fr.ensma.a3.ia.TPBatailleNavale.caze.CaseNavire;
 import fr.ensma.a3.ia.TPBatailleNavale.caze.ICase;
 import fr.ensma.a3.ia.TPBatailleNavale.navires.ENavire;
@@ -16,9 +17,10 @@ public class App {
 		
 
 		System.out.println("-------humain grilleplacement---------");
-		for(ICase caze : humain.getGrillep().getLcaze() ) {
-			if(caze instanceof CaseNavire) {
-				System.out.println(caze.toString());
+		for(INavire nav : humain.getGrillep().getLnavire().values()) {
+			System.out.println(nav.toString());
+			for(CaseNavire cazeNav : nav.getLcaseNav()) {
+				System.out.println(cazeNav.toString());
 			}
 		}
 		
@@ -31,21 +33,25 @@ public class App {
 		
 		
 		System.out.println("-------humain grilleplacement---------");
-		for(ICase caze : humain.getGrillep().getLcaze() ) {
-			if(caze instanceof CaseNavire) {
-				System.out.println(caze.toString());
+		for(INavire nav : humain.getGrillep().getLnavire().values()) {
+			System.out.println(nav.toString());
+			for(CaseNavire cazeNav : nav.getLcaseNav()) {
+				System.out.println(cazeNav.toString());
 			}
 		}
 		
 		System.out.println("-------ordinateur grilleplacement---------");
 		
-		for(ICase caze : ordinateur.getGrillep().getLcaze() ) {
-			if(caze instanceof CaseNavire) {
-				System.out.println(caze.toString());
+		for(INavire nav : ordinateur.getGrillep().getLnavire().values()) {
+			System.out.println(nav.toString());
+			for(CaseNavire cazeNav : nav.getLcaseNav()) {
+				System.out.println(cazeNav.toString());
 			}
 		}
 		
 		humain.alAttaque(humain.getNavire(ENavire.SousMarin), ordinateur, 4, 6);
+		
+		humain.aLEclair(ordinateur, 6,7);
 		
 		INavire nav = humain.getNavire(ENavire.PorteAvion);
 //		nav.setCompoAttaque(new AttaqueEnCroix());

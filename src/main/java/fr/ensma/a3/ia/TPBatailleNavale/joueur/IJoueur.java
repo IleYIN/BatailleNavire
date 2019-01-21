@@ -3,6 +3,7 @@ package fr.ensma.a3.ia.TPBatailleNavale.joueur;
 import java.util.Map;
 
 import fr.ensma.a3.ia.TPBatailleNavale.caze.ICase;
+import fr.ensma.a3.ia.TPBatailleNavale.fuseeEclairante.IEclair;
 import fr.ensma.a3.ia.TPBatailleNavale.grille.IDeplacer;
 import fr.ensma.a3.ia.TPBatailleNavale.grille.IGrilleM;
 import fr.ensma.a3.ia.TPBatailleNavale.grille.IGrilleP;
@@ -17,7 +18,7 @@ import fr.ensma.a3.ia.TPBatailleNavale.navires.INavire;
  * @author yinyiliang
  *
  */
-public interface IJoueur extends IDeplacer {
+public interface IJoueur extends IDeplacer, IEclair {
 	
 	public void addNavire(INavire nav, int posX, int posY, boolean ori);
 	public void addRandomNavire(INavire nav);
@@ -32,4 +33,5 @@ public interface IJoueur extends IDeplacer {
 	public INavire getNavire(ENavire enav);
 	public ICase getCase(int posX, int posY);
 	public void estAttaque();
+	
 }
