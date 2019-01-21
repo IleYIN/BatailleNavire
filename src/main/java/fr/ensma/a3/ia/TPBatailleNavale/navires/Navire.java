@@ -27,7 +27,7 @@ public abstract class Navire implements INavire {
 	private IAttaque compoAttaque;
 	private List<CaseNavire> lcaseNav;
 	private int posX, posY;
-	private boolean ori;
+	private boolean ori;//false horzontal ; true vertical
 	protected ENavire enav;
 
 	// Gestion Etat

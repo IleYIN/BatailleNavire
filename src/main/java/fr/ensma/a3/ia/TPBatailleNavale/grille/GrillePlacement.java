@@ -47,29 +47,30 @@ public class GrillePlacement extends Grille implements IGrilleP {
 	public Map<ENavire, INavire> getLnavire() {
 		return lnavire;
 	}
-
-	private boolean OKToPlaceNavire(INavire nav, int posX, int posY, boolean ori) {
-
+	
+	private boolean OKToPlaceNavirelong(INavire nav, int posX, int posY, boolean ori, int longueur) {
+		
+		
 		ICase caze = this.getCaze(posX, posY);
 
 		if(caze instanceof CaseNavire || caze == null) {
 			return false;
 		} else if (ori==false) {//horizontal
-			if((caze.getPosX()+nav.getLongueur()>this.getTaille())) {
+			if((caze.getPosX()+longueur>this.getTaille())) {
 				return false;
 			} else {
-				for(int i=1; i<nav.getLongueur(); i++) {
+				for(int i=1; i<longueur; i++) {
 					if(this.getCaze(posX+i, posY) instanceof CaseNavire) {
 						return false;
 					}
 				}
 			}
 		} else if (ori==true) {
-			if(caze.getPosY()+nav.getLongueur()>this.getTaille()) {
+			if(caze.getPosY()+longueur>this.getTaille()) {
 				return false;
 			} else {
 
-				for(int i=1; i<nav.getLongueur(); i++) {
+				for(int i=1; i<longueur; i++) {
 					if(this.getCaze(posX, posY+i) instanceof CaseNavire) {
 						return false;
 					}
@@ -78,41 +79,73 @@ public class GrillePlacement extends Grille implements IGrilleP {
 		}
 		return true;
 	}
+	
+	
+	private boolean OKToPlaceNavire(INavire nav, int posX, int posY, boolean ori) {
+		int longueur = nav.getLongueur();
+		return OKToPlaceNavirelong(nav, posX, posY, ori, longueur);
+	}
 
 
 
 	public void addNavire(INavire nav, int posX, int posY, boolean ori) {
 
 		if(OKToPlaceNavire(nav, posX, posY, ori)) {
-
-
+			
 			nav.setPosX(posX);
 			nav.setPosY(posY);
 			nav.setOri(ori);
 
-			if(ori==false) {
-				for( int i=0; i<nav.getLongueur(); i++) {
-					CaseNavire cazeNav = new CaseNavire(posX+i, posY, nav.getNvieCase());
-					nav.getLcaseNav().add(cazeNav);
-					this.setCaze(cazeNav.getPosX(), cazeNav.getPosY(), cazeNav);
-					//				System.out.println(cazeNav);
+			if(nav.getEnav().equals(ENavire.PorteAvion)) {
+				
+				//ori==false horizontal    ori==true vertical
+				if(OKToPlaceNavirelong(nav, posX+(ori?1:0), posY+(ori?0:1), ori, 3)) {
+					
+					for( int i=0; i<nav.getLongueur(); i++) {
+						CaseNavire cazeNav = new CaseNavire(posX+(ori?0:i), posY+(ori?i:0), nav.getNvieCase());
+						nav.getLcaseNav().add(cazeNav);
+						this.setCaze(cazeNav.getPosX(), cazeNav.getPosY(), cazeNav);
+					}
+					//la deuxieme ligne(horizontal) ou colonne(vertical)
+					for( int i=0; i<3; i++) {
+						CaseNavire cazeNav = new CaseNavire(posX+(ori?0:i)+(ori?1:0), posY+(ori?i:0)+(ori?0:1), nav.getNvieCase());
+						nav.getLcaseNav().add(cazeNav);
+						this.setCaze(cazeNav.getPosX(), cazeNav.getPosY(), cazeNav);
+					}
+				} 
+				
+			} else {
 
-				}
-			} else if (ori==true) {
 				for( int i=0; i<nav.getLongueur(); i++) {
-					CaseNavire cazeNav = new CaseNavire(posX, posY+i, nav.getNvieCase());
+					CaseNavire cazeNav = new CaseNavire(posX+(ori?0:i), posY+(ori?i:0), nav.getNvieCase());
 					nav.getLcaseNav().add(cazeNav);
 					this.setCaze(cazeNav.getPosX(), cazeNav.getPosY(), cazeNav);
-					//				System.out.println(cazeNav);
 				}
+				
+				/*if(ori==false) {
+					for( int i=0; i<nav.getLongueur(); i++) {
+						CaseNavire cazeNav = new CaseNavire(posX+i, posY, nav.getNvieCase());
+						nav.getLcaseNav().add(cazeNav);
+						this.setCaze(cazeNav.getPosX(), cazeNav.getPosY(), cazeNav);
+					}
+				} else if (ori==true) {
+					for( int i=0; i<nav.getLongueur(); i++) {
+						CaseNavire cazeNav = new CaseNavire(posX, posY+i, nav.getNvieCase());
+						nav.getLcaseNav().add(cazeNav);
+						this.setCaze(cazeNav.getPosX(), cazeNav.getPosY(), cazeNav);
+					}
+				}*/
+
+				lnavire.put(nav.getEnav(), nav);
 			}
-
-			lnavire.put(nav.getEnav(), nav);
+			
 		} else {
+			
 			LOGGER.info("impossible d'ajouter la navire");
+			
 		}
-
 	}
+
 
 	public void addRandomNavire(INavire nav) {
 
@@ -317,14 +350,14 @@ public class GrillePlacement extends Grille implements IGrilleP {
 		pivoter(nav, cazeNav.getPosX(), cazeNav.getPosY());
 	}
 
-//	public INavire getRandomNavireAttaque() {
-//		int i = (int) (Math.random() * this.getLnavire().size());
-//		while (!(this.getLnavire().get(i).getEtatCourant().equals(this.getLnavire().get(i).getEnFonction()))
-//				|| (this.getLnavire().get(i) instanceof Voilier)) {
-//			i = (int) (Math.random() * this.getLnavire().size());
-//		}
-//		return this.getLnavire().get(i);
-//	}
+	//	public INavire getRandomNavireAttaque() {
+	//		int i = (int) (Math.random() * this.getLnavire().size());
+	//		while (!(this.getLnavire().get(i).getEtatCourant().equals(this.getLnavire().get(i).getEnFonction()))
+	//				|| (this.getLnavire().get(i) instanceof Voilier)) {
+	//			i = (int) (Math.random() * this.getLnavire().size());
+	//		}
+	//		return this.getLnavire().get(i);
+	//	}
 
 	public void explodeBombe() {
 
@@ -420,8 +453,8 @@ public class GrillePlacement extends Grille implements IGrilleP {
 			}
 		}
 	}
-	
-	
+
+
 	public INavire getNavire(ENavire enav) {
 		if(this.getLnavire().keySet().contains(enav)){
 			return this.getLnavire().get(enav);
@@ -431,7 +464,7 @@ public class GrillePlacement extends Grille implements IGrilleP {
 		}
 	}
 
-	
+
 	public void addNavire(INavire nav, ICase caze, boolean ori) {
 		addNavire(nav, caze.getPosX(), caze.getPosY(), ori);
 	}
