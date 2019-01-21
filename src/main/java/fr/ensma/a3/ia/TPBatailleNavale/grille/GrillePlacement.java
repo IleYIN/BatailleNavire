@@ -47,10 +47,10 @@ public class GrillePlacement extends Grille implements IGrilleP {
 	public Map<ENavire, INavire> getLnavire() {
 		return lnavire;
 	}
-	
+
 	private boolean OKToPlaceNavirelong(INavire nav, int posX, int posY, boolean ori, int longueur) {
-		
-		
+
+
 		ICase caze = this.getCaze(posX, posY);
 
 		if(caze instanceof CaseNavire || caze == null) {
@@ -79,10 +79,15 @@ public class GrillePlacement extends Grille implements IGrilleP {
 		}
 		return true;
 	}
-	
-	
+
+
 	private boolean OKToPlaceNavire(INavire nav, int posX, int posY, boolean ori) {
 		int longueur = nav.getLongueur();
+
+		if(nav.getEnav().equals(ENavire.PorteAvion)) {
+			return (OKToPlaceNavirelong(nav, posX, posY, ori, longueur) 
+					&& OKToPlaceNavirelong(nav, posX+(ori?1:0), posY+(ori?0:1), ori, 3));
+		} 
 		return OKToPlaceNavirelong(nav, posX, posY, ori, longueur);
 	}
 
@@ -91,34 +96,28 @@ public class GrillePlacement extends Grille implements IGrilleP {
 	public void addNavire(INavire nav, int posX, int posY, boolean ori) {
 
 		if(OKToPlaceNavire(nav, posX, posY, ori)) {
-			
+
 			nav.setPosX(posX);
 			nav.setPosY(posY);
 			nav.setOri(ori);
 
 			if(nav.getEnav().equals(ENavire.PorteAvion)) {
-				
+
 				//ori==false horizontal    ori==true vertical
-				if(OKToPlaceNavirelong(nav, posX+(ori?1:0), posY+(ori?0:1), ori, 3)) {
-					
-					for( int i=0; i<nav.getLongueur(); i++) {
-						CaseNavire cazeNav = new CaseNavire(posX+(ori?0:i), posY+(ori?i:0), nav.getNvieCase());
-						nav.getLcaseNav().add(cazeNav);
-						this.setCaze(cazeNav.getPosX(), cazeNav.getPosY(), cazeNav);
-					}
-					//la deuxieme ligne(horizontal) ou colonne(vertical)
-					for( int i=0; i<3; i++) {
-						CaseNavire cazeNav = new CaseNavire(posX+(ori?0:i)+(ori?1:0), posY+(ori?i:0)+(ori?0:1), nav.getNvieCase());
-						nav.getLcaseNav().add(cazeNav);
-						this.setCaze(cazeNav.getPosX(), cazeNav.getPosY(), cazeNav);
-					}
-					
-					lnavire.put(nav.getEnav(), nav);
-					
-				} else {
-					LOGGER.info("impossible d'ajouter la navire " + nav.toString());
+				for( int i=0; i<nav.getLongueur(); i++) {
+					CaseNavire cazeNav = new CaseNavire(posX+(ori?0:i), posY+(ori?i:0), nav.getNvieCase());
+					nav.getLcaseNav().add(cazeNav);
+					this.setCaze(cazeNav.getPosX(), cazeNav.getPosY(), cazeNav);
 				}
-				
+				//la deuxieme ligne(horizontal) ou colonne(vertical)
+				for( int i=0; i<3; i++) {
+					CaseNavire cazeNav = new CaseNavire(posX+(ori?0:i)+(ori?1:0), posY+(ori?i:0)+(ori?0:1), nav.getNvieCase());
+					nav.getLcaseNav().add(cazeNav);
+					this.setCaze(cazeNav.getPosX(), cazeNav.getPosY(), cazeNav);
+				}
+
+				lnavire.put(nav.getEnav(), nav);
+
 			} else {
 
 				for( int i=0; i<nav.getLongueur(); i++) {
@@ -126,10 +125,10 @@ public class GrillePlacement extends Grille implements IGrilleP {
 					nav.getLcaseNav().add(cazeNav);
 					this.setCaze(cazeNav.getPosX(), cazeNav.getPosY(), cazeNav);
 				}
-				
+
 				lnavire.put(nav.getEnav(), nav);
-				
-				
+
+
 				/*if(ori==false) {
 					for( int i=0; i<nav.getLongueur(); i++) {
 						CaseNavire cazeNav = new CaseNavire(posX+i, posY, nav.getNvieCase());
@@ -145,11 +144,11 @@ public class GrillePlacement extends Grille implements IGrilleP {
 				}*/
 
 			}
-			
+
 		} else {
-			
+
 			LOGGER.info("impossible d'ajouter la navire "+nav.toString());
-			
+
 		}
 	}
 
@@ -168,7 +167,7 @@ public class GrillePlacement extends Grille implements IGrilleP {
 		else {
 			ori = false;
 		}
-		
+
 		while (!OKToPlaceNavire(nav, posX, posY, ori)) {
 			posX = (int) (Math.random() * 10);
 			posY = (int) (Math.random() * 10);
@@ -180,22 +179,6 @@ public class GrillePlacement extends Grille implements IGrilleP {
 				ori = false;
 			}
 		}
-		
-		if(nav.getEnav().equals(ENavire.PorteAvion)) {
-			while (!OKToPlaceNavire(nav, posX, posY, ori) 
-					&& OKToPlaceNavirelong(nav, posX+(ori?1:0), posY+(ori?0:1), ori, 3)) {
-				posX = (int) (Math.random() * 10);
-				posY = (int) (Math.random() * 10);
-				trueOrFalse = (int) (Math.random() * 2);
-				if (trueOrFalse == 1) {
-					ori = true;
-				}
-				else {
-					ori = false;
-				}
-			}
-		}
-
 		addNavire(nav, posX, posY, ori);
 	}
 
