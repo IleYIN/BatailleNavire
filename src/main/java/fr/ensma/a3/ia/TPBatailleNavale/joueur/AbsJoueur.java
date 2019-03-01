@@ -95,6 +95,10 @@ public abstract class AbsJoueur implements IJoueur{
 		nav.aLAttaque(this, adverse, posX, posY);
 	}
 
+	
+	public void alAttaque(INavire nav, IJoueur adverse, ICase caze) {
+		alAttaque(nav, adverse, caze.getPosX(), caze.getPosY());
+	}
 	//	public void estAttaque() {
 	//		for(INavire nav : grillep.getLnavire()) {
 	//			nav.renouvelerEtatNavire();

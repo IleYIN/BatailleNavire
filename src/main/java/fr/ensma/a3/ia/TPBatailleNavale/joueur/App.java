@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Map.Entry;
 
 import fr.ensma.a3.ia.TPBatailleNavale.caze.CaseNavire;
-import fr.ensma.a3.ia.TPBatailleNavale.caze.ICase;
 import fr.ensma.a3.ia.TPBatailleNavale.navires.ENavire;
 import fr.ensma.a3.ia.TPBatailleNavale.navires.INavire;
 

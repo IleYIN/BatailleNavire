@@ -27,7 +27,8 @@ public interface IJoueur extends IDeplacer, IEclair {
 	public void initialiserRandomGrilleP();
 //	public INavire getRandomNavireAttaque();
 	public  Map<ENavire, List<INavire>> getLnavire();
-	public void alAttaque(INavire nav, IJoueur ordinateur, int posX, int posY);
+	public void alAttaque(INavire nav, IJoueur adverse, ICase caze);
+	public void alAttaque(INavire nav, IJoueur adverse, int posX, int posY);
 	public String toString();
 	public IGrilleM getGrillem();
 	public IGrilleP getGrillep();
