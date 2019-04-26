@@ -17,7 +17,7 @@ public class ViewPlayScene extends VBox implements IViewPlayScene{
 
 	private Stage parent;
 	
-	private Label infoLabel, placementLabel, memoireLabel, actionLabel, bonusLabel;
+	private Label playerLabel, infoLabel, placementLabel, memoireLabel, actionLabel, bonusLabel;
 	private ViewGrillePlacement grillePlacement;
 	private ViewGrilleMemoire grilleMemoire;
 	private ChoiceBox<String> actionList;
@@ -28,7 +28,9 @@ public class ViewPlayScene extends VBox implements IViewPlayScene{
 	public ViewPlayScene(final PresentationPlayScene pres) {
 		presPlayScene = pres;
 		
-		infoLabel = new Label("Player 1 begins his turn");
+		playerLabel = new Label("Player 1 begins his turn");
+		infoLabel = new Label("Choose an action below to begin your turn");
+		
 		placementLabel = new Label("Grille Placement");
 		grillePlacement = new ViewGrillePlacement();
 		actionLabel = new Label("Actions");
@@ -52,7 +54,7 @@ public class ViewPlayScene extends VBox implements IViewPlayScene{
 		
 		grillesBox = new HBox(leftBox, rightBox);
 		grillesBox.setSpacing(30);		
-		getChildren().addAll(infoLabel, grillesBox);
+		getChildren().addAll(playerLabel, infoLabel, grillesBox);
 		
 		setSpacing(30);
 		setAlignment(Pos.CENTER);
