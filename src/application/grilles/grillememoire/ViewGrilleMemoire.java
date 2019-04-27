@@ -19,7 +19,7 @@ public class ViewGrilleMemoire extends GridPane implements IViewGrilleMemoire{
 		presCaze = new PresentationCaze[numberOfCaze][numberOfCaze];
 		for(int i = 0; i<numberOfCaze; i ++) {
 			for(int j = 0; j<numberOfCaze; j++) {
-				presCaze[i][j] = new PresentationCaze();
+				presCaze[i][j] = new PresentationCaze(i, j);
 				viewCaze[i][j] = new ViewCaze(presCaze[i][j]);
 				presCaze[i][j].setView(viewCaze[i][j]);
 				add(viewCaze[i][j], i, j);
