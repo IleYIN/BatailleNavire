@@ -39,6 +39,8 @@ public class ViewPlayScene extends VBox implements IViewPlayScene{
 		presGrillePlacement = new PresGrillePlacement();
 		grillePlacement = new ViewGrillePlacement(presGrillePlacement);
 		presGrillePlacement.setView(grillePlacement);
+		presPlayScene.setPresGrillePlacement(presGrillePlacement);
+		presGrillePlacement.setPresPlayScene(presPlayScene);
 		actionLabel = new Label("Actions");
 		actionList = new ChoiceBox();
 		actionList.getItems().addAll("Normal Attack", "Cross Attack", "Flare Shot", "Shift Ship", "Rotate Ship");
@@ -52,6 +54,8 @@ public class ViewPlayScene extends VBox implements IViewPlayScene{
 		presGrilleMemoire = new PresGrilleMemoire();
 		grilleMemoire = new ViewGrilleMemoire(presGrilleMemoire);
 		presGrilleMemoire.setView(grilleMemoire);
+		presPlayScene.setPresGrilleMemoire(presGrilleMemoire);
+		presGrilleMemoire.setPresPlayScene(presPlayScene);
 		bonusLabel = new Label("Bonus");
 		improveBtn = new Button("Improve Defense");
 		improveBtn.setDisable(true);

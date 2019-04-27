@@ -1,11 +1,16 @@
 package application.playscene;
 
 import application.controller.RouteController;
+import application.grilles.grillememoire.PresGrilleMemoire;
+import application.grilles.grilleplacement.PresGrillePlacement;
 
 public class PresentationPlayScene {
 	
 	private ModelPLayScene modelPlayScene;
 	private IViewPlayScene viewPlayScene;
+	
+	private PresGrillePlacement presGrillePlacement;
+	private PresGrilleMemoire presGrilleMemoire;
 	
 	private RouteController routeController;
 	
@@ -19,6 +24,22 @@ public class PresentationPlayScene {
 	
 	public IViewPlayScene getViewPlayScene() {
 		return viewPlayScene;
+	}
+	
+	public PresGrillePlacement getPresGrillePlacement() {
+		return presGrillePlacement;
+	}
+	
+	public void setPresGrillePlacement(PresGrillePlacement presGrillePlacement) {
+		this.presGrillePlacement = presGrillePlacement;
+	}
+	
+	public PresGrilleMemoire getPresGrilleMemoire() {
+		return presGrilleMemoire;
+	}
+	
+	public void setPresGrilleMemoire(PresGrilleMemoire presGrilleMemoire) {
+		this.presGrilleMemoire = presGrilleMemoire;
 	}
 	
 	public void setRouteController(RouteController routeController) {
