@@ -149,7 +149,6 @@ public class ViewPlacementScene extends VBox implements IViewPlacementScene {
 			@Override
 			public void handle(ActionEvent event) {			
 				if(presPlacementScene.getModel().getPlayer()==1) {
-					System.out.println("hello");
 					infoLabel.setText("Player 2 organizes his ships");
 				} else {
 					
@@ -157,6 +156,7 @@ public class ViewPlacementScene extends VBox implements IViewPlacementScene {
 				presPlacementScene.clickedNext();
 			}
 		});
+		returnBtn.setDisable(true);
 		instructionLabel.setText("Click 'Next' to play");
 	}
 }
