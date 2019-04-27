@@ -57,11 +57,49 @@ public class ViewPlayScene extends VBox implements IViewPlayScene{
 		getChildren().addAll(playerLabel, infoLabel, grillesBox);
 		
 		setSpacing(30);
-		setAlignment(Pos.CENTER);
+		setAlignment(Pos.CENTER);				
 	}
 	
 	public void setStage(Stage parent) {
 		this.parent = parent;
 	}
 	
+	@Override
+	public void notifyDrawInitAllShips() {
+		this.grillePlacement.drawInitAllShips();
+	}
+	
+	@Override
+	public void notifyDrawOcean(int posX, int posY) {
+		this.grillePlacement.drawOcean( posX, posY);
+	}
+	
+	@Override
+	public void notifyDrawTorpilleurShip(int posX, int posY) {
+		this.grillePlacement.drawTorpilleurShip(posX, posY);	
+	}
+
+	@Override
+	public void notifyDrawSousMarinShip(int posX, int posY) {
+		this.grillePlacement.drawSousMarinShip(posX, posY);
+		
+	}
+
+	@Override
+	public void notifyDrawContreTorpilleurShip(int posX, int posY) {
+		this.grillePlacement.drawContreTorpilleurShip(posX, posY);
+		
+	}
+
+	@Override
+	public void notifyDrawPorteAvionShip(int posX, int posY) {
+		this.grillePlacement.drawPorteAvionShip(posX, posY);
+		
+	}
+
+	@Override
+	public void notifyDrawCroisseurShip(int posX, int posY) {
+		this.grillePlacement.drawCroisseurShip(posX, posY);
+		
+	}
 }

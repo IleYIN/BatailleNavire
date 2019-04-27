@@ -168,31 +168,75 @@ public class RouteController {
 	}
 	
 	public void commandDrawInitAllShips() {
-		presPlacement.notifyDrawInitAllShips();
+		if(currentView.equals("ViewPlacementScene")
+				&& currentEtat.equals("EtatPlayer1Place")) {
+			presPlacement.notifyDrawInitAllShips();
+		}
+		if(currentView.equals("ViewPlayScene")) {
+			presPlay.notifyDrawInitAllShips();
+		}
+		
 	}
 	
 	public void commandDrawOcean(int posX, int posY) {
-		presPlacement.notifyDrawOcean(posX, posY);
+		if(currentView.equals("ViewPlacementScene")
+				&& currentEtat.equals("EtatPlayer1Place")) {
+			presPlacement.notifyDrawOcean(posX, posY);
+		}
+		if(currentView.equals("ViewPlayScene")) {
+			presPlay.notifyDrawOcean(posX, posY);
+		}
+		
 	}
 	
 	public void commandShowTorpilleurShips(int posX, int posY) {
-		presPlacement.notifyDrawTorpilleurShip(posX, posY);
+		if(currentView.equals("ViewPlacementScene")
+				&& currentEtat.equals("EtatPlayer1Place")) {
+			presPlacement.notifyDrawTorpilleurShip(posX, posY);
+		}
+		if(currentView.equals("ViewPlayScene")) {
+			presPlay.notifyDrawTorpilleurShip(posX, posY);
+		}
 	}
 	
 	public void commandShowSousMarinShips(int posX, int posY) {
-		presPlacement.notifyDrawSousMarinShip(posX, posY);
+		if(currentView.equals("ViewPlacementScene")
+				&& currentEtat.equals("EtatPlayer1Place")) {
+			presPlacement.notifyDrawSousMarinShip(posX, posY);
+		}
+		if(currentView.equals("ViewPlayScene")) {
+			presPlay.notifyDrawSousMarinShip(posX, posY);
+		}
 	}
 	
 	public void commandShowPorteAvionShips(int posX, int posY) {
-		presPlacement.notifyDrawPorteAvionShip(posX, posY);
+		if(currentView.equals("ViewPlacementScene")
+				&& currentEtat.equals("EtatPlayer1Place")) {
+			presPlacement.notifyDrawPorteAvionShip(posX, posY);
+		}
+		if(currentView.equals("ViewPlayScene")) {
+			presPlay.notifyDrawPorteAvionShip(posX, posY);
+		}
 	}
 	
 	public void commandShowContreTorpilleurShips(int posX, int posY) {
-		presPlacement.notifyDrawContreTorpilleurShip(posX, posY);
+		if(currentView.equals("ViewPlacementScene")
+				&& currentEtat.equals("EtatPlayer1Place")) {
+			presPlacement.notifyDrawContreTorpilleurShip(posX, posY);
+		}
+		if(currentView.equals("ViewPlayScene")) {
+			presPlay.notifyDrawContreTorpilleurShip(posX, posY);
+		}
 	}
 	
 	public void commandShowCroisseurShips(int posX, int posY) {
-		presPlacement.notifyDrawCroisseurShip(posX, posY);
+		if(currentView.equals("ViewPlacementScene")
+				&& currentEtat.equals("EtatPlayer1Place")) {
+			presPlacement.notifyDrawCroisseurShip(posX, posY);
+		}
+		if(currentView.equals("ViewPlayScene")) {
+			presPlay.notifyDrawCroisseurShip(posX, posY);
+		}
 	}
 	
 	public void commandStopAutoPlace() {

@@ -141,52 +141,7 @@ public class LogicController {
 //				}
 //			}
 			
-
-			ENavire enaContreTorpilleur = ENavire.ContreTorpilleur;
-			ENavire enaCroiseur = ENavire.Croiseur;
-			ENavire enaPorteAvion = ENavire.PorteAvion;
-			ENavire enaSousMarin = ENavire.SousMarin;
-			ENavire enaTorpilleur = ENavire.Torpilleur;
-			
-			for(CaseNavire caseNav: this.player1.getGrillep().getNavire(enaContreTorpilleur).getLcaseNav()) {
-				int posX = caseNav.getPosX();
-				int posY = caseNav.getPosY();
-				routeController.commandShowContreTorpilleurShips(posX, posY);
-				System.out.println("ContreTorpilleur-Purple:" +posX+", "+posY);
-			}
-			for(CaseNavire caseNav: this.player1.getGrillep().getNavire(enaCroiseur).getLcaseNav()) {
-				int posX = caseNav.getPosX();
-				int posY = caseNav.getPosY();
-				routeController.commandShowCroisseurShips(posX, posY);
-				System.out.println("Croisseur-Yellow:" +posX+", "+posY);
-			}
-			for(CaseNavire caseNav: this.player1.getGrillep().getNavire(enaPorteAvion).getLcaseNav()) {
-				int posX = caseNav.getPosX();
-				int posY = caseNav.getPosY();
-				routeController.commandShowPorteAvionShips(posX, posY);
-				System.out.println("PorteAvion-Gray:" +posX+", "+posY);
-			}
-			for(CaseNavire caseNav: this.player1.getGrillep().getNavire(enaSousMarin).getLcaseNav()) {
-				int posX = caseNav.getPosX();
-				int posY = caseNav.getPosY();
-				routeController.commandShowSousMarinShips(posX, posY);
-				System.out.println("SousMarin-GreenYellow:" +posX+", "+posY);
-			}
-			for(CaseNavire caseNav: this.player1.getGrillep().getNavire(enaTorpilleur).getLcaseNav()) {
-				int posX = caseNav.getPosX();
-				int posY = caseNav.getPosY();
-				routeController.commandShowTorpilleurShips(posX, posY);
-				System.out.println("Torpilleur-Green:" +posX+", "+posY);
-			}
-			
-			for(int i=0; i<10; i++) {
-				for(int j=0; j<10; j++) {
-					ICase caze = this.player1.getGrillep().getCaze(i, j);
-					if(caze instanceof CaseNavire) {
-						System.out.println(i+", "+j);
-					}
-				}
-			}
+			showPlacedShips();
 			routeController.commandStopAutoPlace();
 		} else if(routeController.getCurrentView().equals("ViewPlacementScene")
 		&& routeController.getCurrentEtat().equals("EtatPlayer2Place")) {
@@ -195,7 +150,56 @@ public class LogicController {
 			LOGGER.info("placeShipsRandomly with wrong View or Etat!!!");
 		}
 	}
+	
+	public void showPlacedShips() {
+		ENavire enaContreTorpilleur = ENavire.ContreTorpilleur;
+		ENavire enaCroiseur = ENavire.Croiseur;
+		ENavire enaPorteAvion = ENavire.PorteAvion;
+		ENavire enaSousMarin = ENavire.SousMarin;
+		ENavire enaTorpilleur = ENavire.Torpilleur;
+		
+		for(CaseNavire caseNav: this.player1.getGrillep().getNavire(enaContreTorpilleur).getLcaseNav()) {
+			int posX = caseNav.getPosX();
+			int posY = caseNav.getPosY();
+			routeController.commandShowContreTorpilleurShips(posX, posY);
+			System.out.println("ContreTorpilleur-Purple:" +posX+", "+posY);
+		}
+		for(CaseNavire caseNav: this.player1.getGrillep().getNavire(enaCroiseur).getLcaseNav()) {
+			int posX = caseNav.getPosX();
+			int posY = caseNav.getPosY();
+			routeController.commandShowCroisseurShips(posX, posY);
+			System.out.println("Croisseur-Yellow:" +posX+", "+posY);
+		}
+		for(CaseNavire caseNav: this.player1.getGrillep().getNavire(enaPorteAvion).getLcaseNav()) {
+			int posX = caseNav.getPosX();
+			int posY = caseNav.getPosY();
+			routeController.commandShowPorteAvionShips(posX, posY);
+			System.out.println("PorteAvion-Gray:" +posX+", "+posY);
+		}
+		for(CaseNavire caseNav: this.player1.getGrillep().getNavire(enaSousMarin).getLcaseNav()) {
+			int posX = caseNav.getPosX();
+			int posY = caseNav.getPosY();
+			routeController.commandShowSousMarinShips(posX, posY);
+			System.out.println("SousMarin-GreenYellow:" +posX+", "+posY);
+		}
+		for(CaseNavire caseNav: this.player1.getGrillep().getNavire(enaTorpilleur).getLcaseNav()) {
+			int posX = caseNav.getPosX();
+			int posY = caseNav.getPosY();
+			routeController.commandShowTorpilleurShips(posX, posY);
+			System.out.println("Torpilleur-Green:" +posX+", "+posY);
+		}
+		
+		for(int i=0; i<10; i++) {
+			for(int j=0; j<10; j++) {
+				ICase caze = this.player1.getGrillep().getCaze(i, j);
+				if(caze instanceof CaseNavire) {
+					System.out.println(i+", "+j);
+				}
+			}
+		}
+	}
 
+	// Auto place ships for computer
 	public void placeShipsPlayer2() {
 		if(routeController.getCurrentView().equals("ViewPlacementScene")
 				&& routeController.getCurrentEtat().equals("EtatPlayer2Place") 
@@ -203,8 +207,8 @@ public class LogicController {
 			this.player2.initialiserRandomGrilleP();
 			routeController.commandEndPlacement();
 			routeController.setCurrentView(routeController.getPresPlay().getViewPlayScene());
-//			routeController.setCurrentEtat(routeController.getPresStarter().getEtatVide());
 			routeController.commandChangeView();
+			showPlacedShips();
 		}
 	}
 }
