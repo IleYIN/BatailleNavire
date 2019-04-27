@@ -6,11 +6,15 @@ import javafx.scene.layout.GridPane;
 
 public class ViewGrillePlacement extends GridPane implements IViewGrillePlacement{
 
+	private PresGrillePlacement presGP;
+	
 	private ViewCaze[][] viewCaze;
 	private PresentationCaze[][] presCaze;
 	private static int numberOfCaze = 10;
 	
-	public ViewGrillePlacement() {
+	public ViewGrillePlacement(final PresGrillePlacement presGP) {
+		this.presGP = presGP;
+		
 		viewCaze = new ViewCaze[numberOfCaze][numberOfCaze];
 		presCaze = new PresentationCaze[numberOfCaze][numberOfCaze];
 		for(int i = 0; i<numberOfCaze; i ++) {

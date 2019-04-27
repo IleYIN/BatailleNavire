@@ -1,6 +1,8 @@
 package application.playscene;
 
+import application.grilles.grillememoire.PresGrilleMemoire;
 import application.grilles.grillememoire.ViewGrilleMemoire;
+import application.grilles.grilleplacement.PresGrillePlacement;
 import application.grilles.grilleplacement.ViewGrillePlacement;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -18,7 +20,9 @@ public class ViewPlayScene extends VBox implements IViewPlayScene{
 	private Stage parent;
 	
 	private Label playerLabel, infoLabel, placementLabel, memoireLabel, actionLabel, bonusLabel;
+	private PresGrillePlacement presGrillePlacement;
 	private ViewGrillePlacement grillePlacement;
+	private PresGrilleMemoire presGrilleMemoire;
 	private ViewGrilleMemoire grilleMemoire;
 	private ChoiceBox<String> actionList;
 	private Button improveBtn;
@@ -32,7 +36,9 @@ public class ViewPlayScene extends VBox implements IViewPlayScene{
 		infoLabel = new Label("Choose an action below to begin your turn");
 		
 		placementLabel = new Label("Grille Placement");
-		grillePlacement = new ViewGrillePlacement();
+		presGrillePlacement = new PresGrillePlacement();
+		grillePlacement = new ViewGrillePlacement(presGrillePlacement);
+		presGrillePlacement.setView(grillePlacement);
 		actionLabel = new Label("Actions");
 		actionList = new ChoiceBox();
 		actionList.getItems().addAll("Normal Attack", "Cross Attack", "Flare Shot", "Shift Ship", "Rotate Ship");
@@ -43,7 +49,9 @@ public class ViewPlayScene extends VBox implements IViewPlayScene{
 		leftBox.setAlignment(Pos.CENTER);
 		
 		memoireLabel = new Label("Grille Memoire");
-		grilleMemoire = new ViewGrilleMemoire();
+		presGrilleMemoire = new PresGrilleMemoire();
+		grilleMemoire = new ViewGrilleMemoire(presGrilleMemoire);
+		presGrilleMemoire.setView(grilleMemoire);
 		bonusLabel = new Label("Bonus");
 		improveBtn = new Button("Improve Defense");
 		improveBtn.setDisable(true);

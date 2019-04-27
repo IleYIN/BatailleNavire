@@ -1,5 +1,6 @@
 package application.placementscene;
 
+import application.grilles.grilleplacement.PresGrillePlacement;
 import application.grilles.grilleplacement.ViewGrillePlacement;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -22,6 +23,7 @@ public class ViewPlacementScene extends VBox implements IViewPlacementScene {
 	
 	private Label infoLabel;
 	private Label instructionLabel;
+	private PresGrillePlacement presGrillePlacement;
 	private ViewGrillePlacement grillePlacement;
 	private Label inforShipsLabel;
 	private ListView<String> shiplist = new ListView<>();
@@ -38,7 +40,9 @@ public class ViewPlacementScene extends VBox implements IViewPlacementScene {
 		
 		infoLabel = new Label("Player 1 organizes his ships");
 		instructionLabel = new Label("Click 'Auto Place' to place your ships");
-		grillePlacement = new ViewGrillePlacement();
+		presGrillePlacement = new PresGrillePlacement();
+		grillePlacement = new ViewGrillePlacement(presGrillePlacement);
+		presGrillePlacement.setView(grillePlacement);
 		inforShipsLabel = new Label("Ships to be placed");
 		inforShipsLabel.setPrefHeight(25);
 		shiplist = new ListView<>();

@@ -4,13 +4,17 @@ import application.caze.PresentationCaze;
 import application.caze.ViewCaze;
 import javafx.scene.layout.GridPane;
 
-public class ViewGrilleMemoire extends GridPane{
+public class ViewGrilleMemoire extends GridPane implements IViewGrilleMemoire{
+	
+	private PresGrilleMemoire presGM;
 
 	private ViewCaze[][] viewCaze;
 	private PresentationCaze[][] presCaze;
 	private static int numberOfCaze = 10;
 	
-	public ViewGrilleMemoire() {
+	public ViewGrilleMemoire(final PresGrilleMemoire presGM) {
+		this.presGM = presGM;
+		
 		viewCaze = new ViewCaze[numberOfCaze][numberOfCaze];
 		presCaze = new PresentationCaze[numberOfCaze][numberOfCaze];
 		for(int i = 0; i<numberOfCaze; i ++) {
