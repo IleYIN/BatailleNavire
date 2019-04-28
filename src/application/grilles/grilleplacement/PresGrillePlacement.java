@@ -17,7 +17,7 @@ public class PresGrillePlacement implements IPresGrille{
 	private final static Logger LOGGER = Logger.getLogger(PresGrillePlacement.class.getName());
 	
 	public PresGrillePlacement() {
-		// TODO Auto-generated constructor stub
+		modelGrillePlacement = new ModelGrillePlacement();
 	}
 	
 	public void setView(final IViewGrillePlacement viewGrillePlacement) {
@@ -34,7 +34,8 @@ public class PresGrillePlacement implements IPresGrille{
 
 	@Override
 	public void chosenCase(int posX, int posY) {
-		// TODO Auto-generated method stub
-		System.out.println(posX+", "+posY);
+		modelGrillePlacement.setChosenX(posX);
+		modelGrillePlacement.setChosenY(posY);
+		presPlayScene.chosenCasePlacement(modelGrillePlacement.getChosenX(), modelGrillePlacement.getChosenY());
 	}
 }

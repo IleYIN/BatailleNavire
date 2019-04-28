@@ -47,9 +47,21 @@ public class PresentationPlayScene {
 	}
 	
 	/*
-	 * Those functions're called by View
+	 * Those functions're called by ViewPlayScene
 	 * to notify RouteController
 	 */
+	public void changePlayAction(String newAction) {
+		modelPlayScene.setChosenAction(newAction);
+	}
+	
+	/*
+	 * Those functions're called by PresGrille
+	 * to notify RouteController
+	 */
+	public void chosenCasePlacement(int chosenX, int chosenY) {
+		// TODO Auto-generated method stub
+
+	}
 	
 	/*
 	 * Those functions're called by RouteController
