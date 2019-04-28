@@ -8,6 +8,7 @@ import application.playscene.automate.EtatChosenShip;
 import application.playscene.automate.EtatEndGame;
 import application.playscene.automate.EtatSleepingPlay;
 import application.playscene.automate.IEtatPlayScene;
+import application.playscene.automate.PlaySceneException;
 
 public class PresentationPlayScene {
 	
@@ -77,9 +78,15 @@ public class PresentationPlayScene {
 	 * to notify RouteController
 	 */
 	public void chosenCasePlacement(int chosenX, int chosenY) {
-		// TODO
-		routeController.setCurrentPlayer(1);
-		routeController.setCurrentView(viewPlayScene);
+		try {
+			etatCourant.chooseShip();
+			routeController.setCurrentPlayer(1);
+			routeController.setCurrentView(viewPlayScene);
+			routeController.setCurrentEtat(etatChosenShip);
+			routeController.notifyChosenCase(chosenX, chosenY, modelPlayScene.getChosenAction());
+		} catch (PlaySceneException e) {
+		}
+		
 	}
 	
 	/*

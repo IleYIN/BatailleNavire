@@ -211,4 +211,16 @@ public class LogicController {
 			showPlacedShips();
 		}
 	}
+	
+	// Identify which Ship is chosen for this attacking
+	public void identifyShip(int chosenX, int chosenY, String chosenAction) {
+		if(routeController.getCurrentPlayer() == 1 
+				&& routeController.getCurrentView().equals("ViewPlayScene")
+				&& routeController.getCurrentEtat().equals("EtatChosenShip")
+				&& gameType == 1) {
+			System.out.println(chosenX+", "+chosenY+" : "+chosenAction);
+		} else {
+			LOGGER.info("Problem at identifyShip function!!!");
+		}
+	}
 }

@@ -160,7 +160,9 @@ public class RouteController {
 	}
 	
 	// Play Scene
-	
+	public void notifyChosenCase(int chosenX, int chosenY, String chosenAction) {
+		logicController.identifyShip(chosenX, chosenY, chosenAction);
+	}
 	
 	/*
 	 * Those functions're called by logicController

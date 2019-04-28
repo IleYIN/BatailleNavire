@@ -34,8 +34,10 @@ public class PresGrillePlacement implements IPresGrille{
 
 	@Override
 	public void chosenCase(int posX, int posY) {
-		modelGrillePlacement.setChosenX(posX);
-		modelGrillePlacement.setChosenY(posY);
-		presPlayScene.chosenCasePlacement(modelGrillePlacement.getChosenX(), modelGrillePlacement.getChosenY());
+		if(presPlayScene != null) {
+			modelGrillePlacement.setChosenX(posX);
+			modelGrillePlacement.setChosenY(posY);
+			presPlayScene.chosenCasePlacement(modelGrillePlacement.getChosenX(), modelGrillePlacement.getChosenY());
+		}		
 	}
 }
