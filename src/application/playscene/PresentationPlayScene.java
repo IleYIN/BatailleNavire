@@ -3,11 +3,22 @@ package application.playscene;
 import application.controller.RouteController;
 import application.grilles.grillememoire.PresGrilleMemoire;
 import application.grilles.grilleplacement.PresGrillePlacement;
+import application.playscene.automate.EtatAttacked;
+import application.playscene.automate.EtatChosenShip;
+import application.playscene.automate.EtatEndGame;
+import application.playscene.automate.EtatSleepingPlay;
+import application.playscene.automate.IEtatPlayScene;
 
 public class PresentationPlayScene {
 	
 	private ModelPLayScene modelPlayScene;
 	private IViewPlayScene viewPlayScene;
+	
+	private IEtatPlayScene etatCourant;
+	private IEtatPlayScene etatSleeping;
+	private IEtatPlayScene etatChosenShip;
+	private IEtatPlayScene etatAttacked;
+	private IEtatPlayScene etatEndGame;
 	
 	private PresGrillePlacement presGrillePlacement;
 	private PresGrilleMemoire presGrilleMemoire;
@@ -16,8 +27,15 @@ public class PresentationPlayScene {
 	
 	public PresentationPlayScene() {
 		modelPlayScene = new ModelPLayScene();
+		
+		etatSleeping = new EtatSleepingPlay(this, modelPlayScene);
+		etatChosenShip = new EtatChosenShip(this, modelPlayScene);
+		etatAttacked = new EtatAttacked(this, modelPlayScene);
+		etatEndGame = new EtatEndGame(this, modelPlayScene);
+		etatCourant = etatSleeping;
 	}
 
+	//----------Point to Views and Model
 	public void setView(IViewPlayScene view) {
 		viewPlayScene = view;
 	}
@@ -59,8 +77,9 @@ public class PresentationPlayScene {
 	 * to notify RouteController
 	 */
 	public void chosenCasePlacement(int chosenX, int chosenY) {
-		// TODO Auto-generated method stub
-
+		// TODO
+		routeController.setCurrentPlayer(1);
+		routeController.setCurrentView(viewPlayScene);
 	}
 	
 	/*
@@ -93,5 +112,30 @@ public class PresentationPlayScene {
 	
 	public void notifyDrawCroisseurShip(int posX, int posY) {
 		viewPlayScene.notifyDrawCroisseurShip(posX, posY);
+	}
+	
+	//----------Gestion Automate
+	public void setEtatCourant(final IEtatPlayScene etatCourant) {
+		this.etatCourant = etatCourant;
+	}
+	
+	public IEtatPlayScene getEtatCourant() {
+		return etatCourant;
+	}
+	
+	public IEtatPlayScene getEtatSleeping() {
+		return etatSleeping;
+	}
+	
+	public IEtatPlayScene getEtatChosenShip() {
+		return etatChosenShip;
+	}
+	
+	public IEtatPlayScene getEtatAttacked() {
+		return etatAttacked;
+	}
+	
+	public IEtatPlayScene getEtatEndGame() {
+		return etatEndGame;
 	}
 }

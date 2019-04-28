@@ -33,7 +33,7 @@ public class PresentationPlacementScene {
 	}
 	
 	/*
-	 * Those functions're called by View
+	 * Those functions're called by ViewPlacementScene
 	 * to notify RouteController
 	 */
 	public void leadToPlayer1() {

@@ -17,6 +17,10 @@ import application.placementscene.automate.EtatPlayer2Place;
 import application.placementscene.automate.EtatSleepingPlace;
 import application.playscene.IViewPlayScene;
 import application.playscene.PresentationPlayScene;
+import application.playscene.automate.EtatAttacked;
+import application.playscene.automate.EtatChosenShip;
+import application.playscene.automate.EtatEndGame;
+import application.playscene.automate.EtatSleepingPlay;
 import application.startscene.IViewStarter;
 import application.startscene.PresentationStarter;
 import application.startscene.automate.EtatOffline;
@@ -38,10 +42,10 @@ public class RouteController {
 	 *  We use String in order to repeat view and state 
 	 */
 	private int currentPlayer;
-	private String currentView;
-	private String previousView;
-	private String currentEtat;
-	private String previousEtat;
+	private String previousView, currentView;
+	private String previousEtat, currentEtat;
+	
+	private int chosenCaseX, chosenCaseY;
 	
 	// Connection to Presentations
 	private PresentationStarter presStarter;
@@ -112,6 +116,15 @@ public class RouteController {
 			this.currentEtat = "EtatPlayer2Place";
 		} else if(etat instanceof EtatPassedPlace) {
 			this.currentEtat = "EtatPassedPlace";
+		// Etat of ViewPlayScene
+		} else if(etat instanceof EtatSleepingPlay) {
+			this.currentEtat = "EtatSleepingPlay";
+		} else if(etat instanceof EtatChosenShip) {
+			this.currentEtat = "EtatChosenShip";
+		} else if(etat instanceof EtatAttacked) {
+			this.currentEtat = "EtatAttacked";
+		} else if(etat instanceof EtatEndGame) {
+			this.currentEtat = "EtatEndGame";
 		} else {
 			LOGGER.info("Etat type does not exist!!!");
 		}
@@ -137,6 +150,7 @@ public class RouteController {
 		logicController.backToStarter();
 	}
 	
+	// Placement Scene
 	public void notifyPlaceShipsRandomly() {
 		logicController.placeShipsRandomly();
 	}
@@ -144,6 +158,9 @@ public class RouteController {
 	public void notifyPlaceShipsPlayer2() {
 		logicController.placeShipsPlayer2();
 	}
+	
+	// Play Scene
+	
 	
 	/*
 	 * Those functions're called by logicController
