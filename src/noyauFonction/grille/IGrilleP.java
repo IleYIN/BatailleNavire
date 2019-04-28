@@ -23,7 +23,6 @@ public interface IGrilleP extends IDeplacer, IGrille {
 	public void addNavire(INavire nav, ICase caze, boolean ori);
 	public void addRandomNavire(INavire nav);
 	public void addRandomNavires(INavire... navs);
-//	public INavire getRandomNavireAttaque();
 	public  Map<ENavire, List<INavire>> getMapnavire();
 	public void setBombe(Bombe bombe);
 	public Bombe getBombe();
@@ -31,4 +30,7 @@ public interface IGrilleP extends IDeplacer, IGrille {
 	public INavire getNavire(ENavire enav);
 	public INavire getNavire(ENavire enav,int i);
 	public void estAttaque();
+	
+	public INavire getRandomNavire();
+
 }

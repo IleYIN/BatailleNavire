@@ -25,7 +25,6 @@ public interface IJoueur extends IDeplacer, IEclair {
 	public void addRandomNavire(INavire nav);
 	public void addRandomNavires(INavire... navs);
 	public void initialiserRandomGrilleP();
-//	public INavire getRandomNavireAttaque();
 	public  Map<ENavire, List<INavire>> getLnavire();
 	public void alAttaque(INavire nav, IJoueur adverse, ICase caze);
 	public void alAttaque(INavire nav, IJoueur adverse, int posX, int posY);
@@ -35,4 +34,7 @@ public interface IJoueur extends IDeplacer, IEclair {
 	public INavire getNavire(ENavire enav);
 	public ICase getCase(int posX, int posY);
 	
+
+	public void alAttaqueRandom(IJoueur adverse);
+	public INavire getRandomNavire();
 }
