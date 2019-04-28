@@ -24,7 +24,7 @@ public class ViewCaze extends Canvas implements IViewCaze{
 
 			@Override
 			public void handle(MouseEvent event) {
-//				presCaze.notifyChosen();				
+				presCaze.notifyChosen();				
 			}			
 		});
 	}

@@ -24,4 +24,8 @@ public class PresentationCaze {
 	public void setPresGrille(IPresGrille presGrille) {
 		this.presGrille = presGrille;
 	}
+	
+	public void notifyChosen() {
+		presGrille.chosenCase(modelCaze.getPosX(), modelCaze.getPosY());
+	}
 }

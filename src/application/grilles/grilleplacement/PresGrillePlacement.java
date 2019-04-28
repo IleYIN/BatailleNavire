@@ -1,5 +1,9 @@
 package application.grilles.grilleplacement;
 
+import java.util.List;
+import java.util.logging.Logger;
+
+import application.caze.PresentationCaze;
 import application.grilles.IPresGrille;
 import application.playscene.PresentationPlayScene;
 
@@ -9,6 +13,8 @@ public class PresGrillePlacement implements IPresGrille{
 	private IViewGrillePlacement viewGrillePlacement;
 	
 	private	PresentationPlayScene presPlayScene;
+	
+	private final static Logger LOGGER = Logger.getLogger(PresGrillePlacement.class.getName());
 	
 	public PresGrillePlacement() {
 		// TODO Auto-generated constructor stub
@@ -29,6 +35,6 @@ public class PresGrillePlacement implements IPresGrille{
 	@Override
 	public void chosenCase(int posX, int posY) {
 		// TODO Auto-generated method stub
-		
+		System.out.println(posX+", "+posY);
 	}
 }

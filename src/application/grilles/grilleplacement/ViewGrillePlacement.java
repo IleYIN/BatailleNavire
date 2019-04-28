@@ -6,14 +6,14 @@ import javafx.scene.layout.GridPane;
 
 public class ViewGrillePlacement extends GridPane implements IViewGrillePlacement{
 
-	private PresGrillePlacement presGP;
+	private PresGrillePlacement presGrillePlacement;
 	
 	private ViewCaze[][] viewCaze;
 	private PresentationCaze[][] presCaze;
 	private static int numberOfCaze = 10;
 	
 	public ViewGrillePlacement(final PresGrillePlacement presGP) {
-		this.presGP = presGP;
+		this.presGrillePlacement = presGP;
 		
 		viewCaze = new ViewCaze[numberOfCaze][numberOfCaze];
 		presCaze = new PresentationCaze[numberOfCaze][numberOfCaze];
@@ -23,6 +23,8 @@ public class ViewGrillePlacement extends GridPane implements IViewGrillePlacemen
 				viewCaze[i][j] = new ViewCaze(presCaze[i][j]);
 				presCaze[i][j].setView(viewCaze[i][j]);
 				add(viewCaze[i][j], i, j);
+
+				presCaze[i][j].setPresGrille(this.presGrillePlacement);
 			}
 		}
 	}
@@ -33,7 +35,6 @@ public class ViewGrillePlacement extends GridPane implements IViewGrillePlacemen
 			for(int j = 0; j<numberOfCaze; j++) {
 				viewCaze[i][j].drawInit(viewCaze[i][j].getGraphicsContext2D());
 				viewCaze[i][j].drawSquare(viewCaze[i][j].getGraphicsContext2D());
-//				System.out.println("true");
 			}
 		}
 	}
